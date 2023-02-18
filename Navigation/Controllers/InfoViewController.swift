@@ -13,7 +13,7 @@ class InfoViewController: UIViewController {
         let button = UIButton()
         button.setTitle("press ME", for: .normal)
         button.backgroundColor = .systemBlue
-        button.frame = CGRect(x: 100, y: 200, width: 100, height: 200)
+        button.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
         button.addTarget(self, action: #selector(addUIAlert), for: .touchUpInside)
         return button
     }()
