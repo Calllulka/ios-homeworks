@@ -32,8 +32,8 @@ func createFeedViewController() -> UINavigationController {
 
 func createProfileViewController() -> UINavigationController {
     let profileViewController = ProfileViewController()
-    profileViewController.title = "Профиль"
-    profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.circle"), tag: 1)
+    profileViewController.title = "Profile"
+    profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
     return UINavigationController(rootViewController: profileViewController)
 }
 
