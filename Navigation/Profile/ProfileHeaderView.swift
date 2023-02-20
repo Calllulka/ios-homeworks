@@ -9,6 +9,9 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    var statusText: String?
+    
+    
     var avatar: UIImageView = {
         var imageView = UIImageView(image: UIImage(named: "Image"))
         imageView.layer.borderWidth = 3.0
@@ -53,7 +56,7 @@ class ProfileHeaderView: UIView {
     }()
     
     var textField: UITextField = {
-       let textField = UITextField()
+       var textField = UITextField()
         textField.backgroundColor = .white
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black
@@ -61,6 +64,7 @@ class ProfileHeaderView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
         return textField
     }()
     
@@ -95,19 +99,28 @@ class ProfileHeaderView: UIView {
         button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 40).isActive = true
         button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        lableTwo.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -34).isActive = true
+        lableTwo.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -58).isActive = true
         lableTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         lableTwo.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16).isActive = true
         
-//        textField.topAnchor.constraint(equalTo: lableTwo.bottomAnchor, constant: 4).isActive = true
-//        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-//        textField.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16).isActive = true
-//        textField.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        textField.topAnchor.constraint(equalTo: lableTwo.bottomAnchor, constant: 4).isActive = true
+        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        textField.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     @objc func tapButton() {
         print("\(button.title(for: .normal)!)")
+        guard let text = statusText else {
+            lableTwo.text = "I'm frog, ping, ping"
+            return
+        }
+        lableTwo.text = text
+    }
+    
+    @objc func statusTextChanged(_ textField: UITextField){
+        statusText = textField.text
     }
 }
