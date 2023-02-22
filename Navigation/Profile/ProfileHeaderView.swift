@@ -12,8 +12,8 @@ class ProfileHeaderView: UIView {
     var statusText: String?
     
     
-    var avatar: UIImageView = {
-        var imageView = UIImageView(image: UIImage(named: "Image"))
+    var avatarImageView: UIImageView = {
+        var imageView = UIImageView(image: UIImage(named: "avatarImageView"))
         imageView.layer.borderWidth = 3.0
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = 55
@@ -22,7 +22,7 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    var lable: UILabel = {
+    var fullNameLabel: UILabel = {
         var lable = UILabel()
         lable.text = "Crazy Frog"
         lable.textColor = .black
@@ -31,7 +31,7 @@ class ProfileHeaderView: UIView {
         return lable
     }()
     
-    var lableTwo: UILabel = {
+    var statusLabel: UILabel = {
         var lable = UILabel()
         lable.text = "Waiting for something..."
         lable.textColor = .gray
@@ -40,7 +40,7 @@ class ProfileHeaderView: UIView {
         return lable
     }()
     
-    var button: UIButton = {
+    var setStatusButton: UIButton = {
         let button = UIButton()
         button.setTitle("Show status", for: .normal)
         button.backgroundColor = .systemBlue
@@ -55,7 +55,7 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    var textField: UITextField = {
+    var statusTextField: UITextField = {
        var textField = UITextField()
         textField.backgroundColor = .white
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -65,6 +65,7 @@ class ProfileHeaderView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+        textField.textAlignment = .center
         return textField
     }()
     
@@ -79,45 +80,45 @@ class ProfileHeaderView: UIView {
     }
     
     private func prepareView() {
-        addSubview(button)
-        addSubview(avatar)
-        addSubview(lable)
-        addSubview(lableTwo)
-        addSubview(textField)
+        addSubview(setStatusButton)
+        addSubview(avatarImageView)
+        addSubview(fullNameLabel)
+        addSubview(statusLabel)
+        addSubview(statusTextField)
     }
     
     private func makeConstraints() {
-        avatar.heightAnchor.constraint(equalTo: avatar.widthAnchor).isActive = true
-        avatar.widthAnchor.constraint(equalToConstant: 110).isActive = true
-        avatar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        avatar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor).isActive = true
+        avatarImageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
+        avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         
-        lable.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        lable.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16).isActive = true
-        lable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
+        fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         
-        button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 40).isActive = true
-        button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 40).isActive = true
+        setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        setStatusButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        lableTwo.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -58).isActive = true
-        lableTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        lableTwo.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16).isActive = true
+        statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -58).isActive = true
+        statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
         
-        textField.topAnchor.constraint(equalTo: lableTwo.bottomAnchor, constant: 4).isActive = true
-        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        textField.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16).isActive = true
-        textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 4).isActive = true
+        statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
+        statusTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     @objc func tapButton() {
-        print("\(button.title(for: .normal)!)")
+        print("\(setStatusButton.title(for: .normal)!)")
         guard let text = statusText else {
-            lableTwo.text = "I'm frog, ping, ping"
+            statusLabel.text = "I'm frog, ping, ping"
             return
         }
-        lableTwo.text = text
+        statusLabel.text = text
     }
     
     @objc func statusTextChanged(_ textField: UITextField){
