@@ -11,8 +11,6 @@ class ProfileViewController: UIViewController {
     
     let profileView = ProfileHeaderView()
     
-    
-    
     var buttonBotton: UIButton = {
         let button = UIButton()
         button.setTitle("Нижняя кнопка", for: .normal)
@@ -30,14 +28,12 @@ class ProfileViewController: UIViewController {
         makeConstraints()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     override func viewWillLayoutSubviews() {
-        
-        NSLayoutConstraint.activate([
-            buttonBotton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            buttonBotton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            buttonBotton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            buttonBotton.heightAnchor.constraint(equalToConstant: 30)
-        ])
     }
     
     func makeConstraints() {
@@ -49,8 +45,12 @@ class ProfileViewController: UIViewController {
             profileView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             profileView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             profileView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            profileView.heightAnchor.constraint(equalToConstant: 220)
+            profileView.heightAnchor.constraint(equalToConstant: 220),
             
+            buttonBotton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            buttonBotton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            buttonBotton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            buttonBotton.heightAnchor.constraint(equalToConstant: 30)
             
         ])
     }

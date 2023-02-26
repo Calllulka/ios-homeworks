@@ -19,27 +19,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.backgroundColor = .red
         return true
+        
     }
 }
 
 func createFeedViewController() -> UINavigationController {
     let feedViewController = FeedViewController()
-    feedViewController.title = "Лента"
+    feedViewController.title = "Feed"
     feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "doc.richtext"), tag: 0)
     return UINavigationController(rootViewController: feedViewController)
 }
 
 
-func createProfileViewController() -> UINavigationController {
-    let profileViewController = ProfileViewController()
-    profileViewController.title = "Profile"
-    profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
-    return UINavigationController(rootViewController: profileViewController)
+//func createProfileViewController() -> UINavigationController {
+//    let profileViewController = ProfileViewController()
+//    profileViewController.title = "Profile"
+//    profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
+//    return UINavigationController(rootViewController: profileViewController)
+//}
+
+func createLogInViewController() -> UINavigationController {
+    let logInviewController = LogInViewController()
+    logInviewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
+    
+    return UINavigationController(rootViewController: logInviewController)
 }
 
 func createTabBarController() -> UITabBarController {
     let tabBarController = UITabBarController()
     UITabBar.appearance().backgroundColor = .systemBlue
-    tabBarController.viewControllers = [createProfileViewController(), createFeedViewController()]
+    tabBarController.viewControllers = [createLogInViewController(), createFeedViewController()]
     return tabBarController
 }
+
