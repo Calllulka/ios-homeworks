@@ -8,11 +8,13 @@
 import UIKit
 
 class PostViewController: UIViewController {
+    
     var titlePost = "UserName"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemGray
+        self.view.backgroundColor = .systemBlue
         self.navigationItem.title = titlePost
         
         let barButton = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(actionBarbutton))
