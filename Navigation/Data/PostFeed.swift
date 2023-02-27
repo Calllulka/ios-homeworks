@@ -8,6 +8,6 @@
 import Foundation
 import UIKit
 
-struct Post {
+struct PostFeed {
     var title: String
 }
