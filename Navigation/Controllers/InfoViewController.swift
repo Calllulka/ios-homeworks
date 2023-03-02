@@ -8,7 +8,7 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-/// это лучшая кнопка от Володи
+    
     var button: UIButton = {
         let button = UIButton()
         button.setTitle("press ME", for: .normal)

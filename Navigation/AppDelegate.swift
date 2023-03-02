@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = createTabBarController()
         window?.makeKeyAndVisible()
-        window?.backgroundColor = .red
+        window?.backgroundColor = .white
         return true
         
     }
@@ -29,14 +29,6 @@ func createFeedViewController() -> UINavigationController {
     feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "doc.richtext"), tag: 0)
     return UINavigationController(rootViewController: feedViewController)
 }
-
-
-//func createProfileViewController() -> UINavigationController {
-//    let profileViewController = ProfileViewController()
-//    profileViewController.title = "Profile"
-//    profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
-//    return UINavigationController(rootViewController: profileViewController)
-//}
 
 func createLogInViewController() -> UINavigationController {
     let logInviewController = LogInViewController()
