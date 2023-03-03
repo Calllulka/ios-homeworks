@@ -27,7 +27,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     var fullNameLabel: UILabel = {
         var lable = UILabel()
-        lable.text = "Crazy Frog"
+        lable.text = "Kventin Tarantino"
         lable.textColor = .black
         lable.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         lable.translatesAutoresizingMaskIntoConstraints = false
