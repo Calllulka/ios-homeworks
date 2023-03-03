@@ -9,7 +9,9 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    var post = Post(title: "Мой пост")
+//    MARK: - Property
+    
+    var post = PostFeed(title: "Мой пост")
     
     private lazy var buttonOne: UIButton = {
        let button = UIButton()
@@ -49,6 +51,8 @@ class FeedViewController: UIViewController {
         view.addSubview(stackView)
         addConstraintsStackView()
     }
+    
+//    MARK: - Function
     
     @objc func buttonAction() {
         let postViewController = PostViewController()

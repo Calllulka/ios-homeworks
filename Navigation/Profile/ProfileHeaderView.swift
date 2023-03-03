@@ -7,10 +7,13 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
+    
+//    MARK: property
+    
+    static let identifier = "TableHeader"
     
     var statusText: String?
-    
     
     var avatarImageView: UIImageView = {
         var imageView = UIImageView(image: UIImage(named: "avatarImageView"))
@@ -24,7 +27,7 @@ class ProfileHeaderView: UIView {
     
     var fullNameLabel: UILabel = {
         var lable = UILabel()
-        lable.text = "Crazy Frog"
+        lable.text = "Kventin Tarantino"
         lable.textColor = .black
         lable.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         lable.translatesAutoresizingMaskIntoConstraints = false
@@ -69,15 +72,21 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
-    init() {
-        super.init(frame: .zero)
-        prepareView()
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(setStatusButton)
+        contentView.addSubview(avatarImageView)
+        contentView.addSubview(fullNameLabel)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(statusTextField)
         makeConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    MARK: function
     
     private func prepareView() {
         addSubview(setStatusButton)
@@ -88,28 +97,31 @@ class ProfileHeaderView: UIView {
     }
     
     private func makeConstraints() {
-        avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor).isActive = true
-        avatarImageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
-        avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         
-        fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
-        fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        
-        setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 40).isActive = true
-        setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        setStatusButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -58).isActive = true
-        statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
-        
-        statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 4).isActive = true
-        statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
-        statusTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        NSLayoutConstraint.activate([
+            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 110),
+            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            fullNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            fullNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 40),
+            setStatusButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -58),
+            statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            
+            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 4),
+            statusTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+        ])
     }
     
     @objc func tapButton() {
@@ -125,3 +137,4 @@ class ProfileHeaderView: UIView {
         statusText = textField.text
     }
 }
+
