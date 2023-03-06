@@ -111,6 +111,7 @@ class LogInViewController: UIViewController {
         setupKeyboardObservers()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
+//    alfnkwnfbkj
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
