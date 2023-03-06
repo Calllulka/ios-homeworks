@@ -9,65 +9,66 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    // MARK: - Private property
+    // MARK: - Property
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-
+        
         scrollView.showsVerticalScrollIndicator = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = .white
-
+        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return scrollView
     }()
-
+    
     private lazy var logo: UIImageView = {
         var logo = UIImageView(image: UIImage(named: "logo"))
         logo.translatesAutoresizingMaskIntoConstraints = false
         return logo
     }()
     
-    private lazy var login: UITextField = {
-       let login = UITextField()
-        login.textColor = .black
-        login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        login.autocapitalizationType = .none
-        login.tintColor = .black
-        login.backgroundColor = .systemGray6
-        login.placeholder = "Email or phone"
-        login.leftViewMode = .always
-        login.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-        login.rightViewMode = .always
-        login.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-        login.returnKeyType = UIReturnKeyType.done
-        login.keyboardType = .default
-        login.delegate = self
-        return login
-    }()
-    
-    private lazy var password: UITextField = {
-       let password = UITextField()
-        password.textColor = .black
-        password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        password.autocapitalizationType = .none
-        password.tintColor = .black
-        password.isSecureTextEntry = true
-        password.backgroundColor = .systemGray6
-        password.placeholder = "Password"
-        password.leftViewMode = .always
-        password.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-        password.rightViewMode = .always
-        password.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-        password.returnKeyType = UIReturnKeyType.done
-        password.keyboardType = .default
-        password.delegate = self
-        return password
-    }()
-    
     private lazy var authorization: UIStackView = {
-       let authorization = UIStackView()
+        let authorization = UIStackView()
+        
+        var login: UITextField = {
+            let login = UITextField()
+            login.textColor = .black
+            login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            login.autocapitalizationType = .none
+            login.tintColor = .black
+            login.backgroundColor = .systemGray6
+            login.placeholder = "Email or phone"
+            login.leftViewMode = .always
+            login.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+            login.rightViewMode = .always
+            login.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+            login.returnKeyType = UIReturnKeyType.done
+            login.keyboardType = .default
+            login.delegate = self
+            return login
+        }()
+        
+        var password: UITextField = {
+            let password = UITextField()
+            password.textColor = .black
+            password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+            password.autocapitalizationType = .none
+            password.tintColor = .black
+            password.isSecureTextEntry = true
+            password.backgroundColor = .systemGray6
+            password.placeholder = "Password"
+            password.leftViewMode = .always
+            password.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+            password.rightViewMode = .always
+            password.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+            password.returnKeyType = UIReturnKeyType.done
+            password.keyboardType = .default
+            password.delegate = self
+            return password
+        }()
+        
         authorization.translatesAutoresizingMaskIntoConstraints = false
         authorization.clipsToBounds = true
         authorization.layer.cornerRadius = 10
@@ -86,7 +87,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var button: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.backgroundColor = UIColor(named: "MyColor")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
@@ -111,38 +112,38 @@ class LogInViewController: UIViewController {
         setupKeyboardObservers()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-//    alfnkwnfbkj
+    //    alfnkwnfbkj
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeKeyboardObservers()
     }
     
-//    MARK: - Methods
+    //    MARK: - Methods
     
     func makeConstraints() {
-        let safeAreaGuide = view.safeAreaLayoutGuide
-        
-        logo.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        logo.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        logo.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        logo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120).isActive = true
-        
-        authorization.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120).isActive = true
-        authorization.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        authorization.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32).isActive = true
-        authorization.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        
-        button.topAnchor.constraint(equalTo: authorization.bottomAnchor, constant: 16).isActive = true
-        button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        button.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.bottomAnchor.constraint(greaterThanOrEqualTo: scrollView.bottomAnchor).isActive = true
-//
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            logo.widthAnchor.constraint(equalToConstant: 100),
+            logo.heightAnchor.constraint(equalToConstant: 100),
+            logo.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            logo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120),
+            
+            authorization.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
+            authorization.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            authorization.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32),
+            authorization.heightAnchor.constraint(equalToConstant: 100),
+            
+            button.topAnchor.constraint(equalTo: authorization.bottomAnchor, constant: 16),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            button.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32),
+            button.heightAnchor.constraint(equalToConstant: 50),
+            button.bottomAnchor.constraint(greaterThanOrEqualTo: scrollView.bottomAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     @objc func buttonTouch() {
@@ -171,8 +172,6 @@ class LogInViewController: UIViewController {
     @objc func willShowKeyboard(_ notification: NSNotification) {
         let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
         scrollView.contentInset.bottom = keyboardHeight ?? 0
-        
-//        button.contentInset.bottom += keyboardHeight ?? 0.0
     }
     
     @objc func willHideKeyboard(_ notification: NSNotification) {

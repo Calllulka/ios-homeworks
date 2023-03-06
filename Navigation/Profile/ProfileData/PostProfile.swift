@@ -1,8 +1,8 @@
 //
-//  ProfilePost.swift
+//  PostProfile.swift
 //  TestOne
 //
-//  Created by Alexander on 27.02.2023.
+//  Created by Alexander on 07.03.2023.
 //
 
 import UIKit

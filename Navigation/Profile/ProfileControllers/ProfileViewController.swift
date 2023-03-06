@@ -9,95 +9,78 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    private lazy var tableView: UITableView = {
-        let table = UITableView.init(
-            frame: .zero,
-            style: .plain)
+    //    MARK: - Property
+    
+    private var dataSourse = Post.make()
+    
+    private let tableView: UITableView = {
+        let table = UITableView()
+        table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.id)
+        table.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.reuseId)
         table.translatesAutoresizingMaskIntoConstraints = false
-        
+        table.estimatedRowHeight = 70
         return table
     }()
     
-    private enum CellReuseID: String {
-        case base = "BaseTableView_ ReuseID"
-        case custom = "CustomTableViewCell_ReuseID"
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupConstrains()
+        setupTable()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        view.addSubview(tableView)
-        tableView.register(ProfileHeaderView.self, forCellReuseIdentifier: "ProfileHeaderView")
-        tableView.dataSource = self
-        makeConstraints()
-    }
-//
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//    }
-//
-    func setupView() {
-        view.backgroundColor = .blue
-        navigationItem.title = "Hello world"
-        navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    func makeConstraints() {
-        let safeArea = view.safeAreaLayoutGuide
-
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
-        ])
-    }
-    
-    private func tuneTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+    //    MARK: - Function setupConstraint
         
-        let headerView = ProfileHeaderView()
-        tableView.setAndLayout(headerView: headerView)
-        tableView.tableFooterView = UIView()
-        
-        tableView.register(
-            ProfileHeaderView.self,
-            forCellReuseIdentifier: CellReuseID.base.rawValue
-        )
-        
-//        tableView.dataSource.self
-//        tableView.delegate.self
-    }
-}
-
-extension ProfileViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileHeaderView", for: indexPath) as? BaseTableViewCell else {
-            fatalError("Kek")
+        func setupTable() {
+            tableView.delegate = self
+            tableView.dataSource = self
         }
+    
+    func setupConstrains(){
+        view.addSubview(tableView)
         
-        return cell
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor)
+            
+        ])
     }
 }
 
-extension UITableView {
-    func setAndLayout(headerView: UIView) {
-        tableHeaderView = headerView
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            headerView.widthAnchor.constraint(equalTo: widthAnchor)
-        ])
-        headerView.setNeedsLayout()
-        headerView.layoutIfNeeded()
-        headerView.frame.size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+//MARK: - extention
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSourse.count + 1
     }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.reuseId, for: indexPath) as? PhotosTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.id, for: indexPath) as? PostTableViewCell else {
+                return UITableViewCell()
+            }
+            let post = dataSourse[indexPath.row - 1]
+            cell.configure(with: post)
+            return cell
+        }
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 225
+    }
+
 }
