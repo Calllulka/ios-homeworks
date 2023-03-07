@@ -69,6 +69,7 @@ class PhotosTableViewCell: UITableViewCell {
         contentView.addSubview(lable)
         contentView.addSubview(arrow)
         contentView.addSubview(stack)
+        selectionStyle = .none
     }
     
     private func setupLayout(){
