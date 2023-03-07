@@ -36,7 +36,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         setupLayouts()
     }
     
-    // MARK: - Private
+    // MARK: - Function
     
     private func setupView() {
         contentView.clipsToBounds = true

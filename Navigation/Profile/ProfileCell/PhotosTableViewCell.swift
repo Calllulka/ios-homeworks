@@ -9,6 +9,8 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
+    //    MARK: - Property
+    
     static let reuseId = "PhotosTableViewCell"
     
     private lazy var lable: UILabel = {
@@ -49,6 +51,8 @@ class PhotosTableViewCell: UITableViewCell {
         return stack
     }()
     
+    //    MARK: - LifeCycle
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,6 +62,8 @@ class PhotosTableViewCell: UITableViewCell {
         setupSubviews()
         setupLayout()
     }
+    
+    //    MARK: - Function
     
     private func setupSubviews(){
         contentView.addSubview(lable)

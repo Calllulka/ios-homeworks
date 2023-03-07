@@ -72,6 +72,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return textField
     }()
     
+    //    MARK: - LifeCycle
+    
     override init(reuseIdentifier: String?) {
             super.init(reuseIdentifier: reuseIdentifier)
             contentView.addSubview(setStatusButton)

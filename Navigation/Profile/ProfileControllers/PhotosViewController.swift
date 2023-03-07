@@ -9,6 +9,8 @@ import UIKit
 
 class PhotosViewController: UIViewController {
 
+    //    MARK: - Property
+    
     fileprivate lazy var pokemonArray = Pokemon.makeArray()
     
     private lazy var collectionView: UICollectionView = {
@@ -25,6 +27,8 @@ class PhotosViewController: UIViewController {
         return collection
     }()
     
+//    MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -36,6 +40,8 @@ class PhotosViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
+    //    MARK: - Function
     
     private func setupView() {
         view.backgroundColor = .systemBackground
@@ -69,6 +75,8 @@ class PhotosViewController: UIViewController {
         }
 }
 
+//    MARK: - Extension DataSourse
+
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         pokemonArray.count
@@ -83,6 +91,8 @@ extension PhotosViewController: UICollectionViewDataSource {
         return cell!
     }
 }
+
+//    MARK: - Extension FlowLayout
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     

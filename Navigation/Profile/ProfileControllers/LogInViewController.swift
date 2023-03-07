@@ -97,6 +97,8 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    //    MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -112,7 +114,6 @@ class LogInViewController: UIViewController {
         setupKeyboardObservers()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    //    alfnkwnfbkj
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -183,6 +184,8 @@ class LogInViewController: UIViewController {
         notificationCenter.removeObserver(self)
     }
 }
+
+//    MARK: - Extension
 
 extension LogInViewController: UITextFieldDelegate {
     

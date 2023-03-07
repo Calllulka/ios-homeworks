@@ -22,6 +22,8 @@ class ProfileViewController: UIViewController {
         return table
     }()
     
+//    MARK: - LifeCycle
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupConstrains()
@@ -66,7 +68,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.reuseId, for: indexPath) as? PhotosTableViewCell else {
                 return UITableViewCell()
             }
-            
+            cell.selectionStyle = .none
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.id, for: indexPath) as? PostTableViewCell else {
@@ -74,6 +76,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
             let post = dataSourse[indexPath.row - 1]
             cell.configure(with: post)
+            cell.selectionStyle = .none
             return cell
         }
     }
