@@ -28,12 +28,17 @@ class ProfileViewController: UIViewController {
         setupTable()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     //    MARK: - Function setupConstraint
-        
-        func setupTable() {
-            tableView.delegate = self
-            tableView.dataSource = self
-        }
+    
+    func setupTable() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
     
     func setupConstrains(){
         view.addSubview(tableView)
@@ -48,15 +53,14 @@ class ProfileViewController: UIViewController {
     }
 }
 
-
 //MARK: - extention
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataSourse.count + 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.reuseId, for: indexPath) as? PhotosTableViewCell else {
@@ -73,14 +77,21 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let photoController = PhotosViewController()
+            navigationController?.pushViewController(photoController, animated: true)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
         return header
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        необходима корректировка
         return 225
     }
-
 }

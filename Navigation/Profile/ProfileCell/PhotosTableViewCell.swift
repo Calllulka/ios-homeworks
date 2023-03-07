@@ -11,8 +11,6 @@ class PhotosTableViewCell: UITableViewCell {
     
     static let reuseId = "PhotosTableViewCell"
     
-//    var dataSourse = Pokemon.makeArray()
-    
     private lazy var lable: UILabel = {
        let label = UILabel()
         label.textColor = .black
@@ -22,28 +20,31 @@ class PhotosTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var button: UIButton = {
-       var button = UIButton()
-        button.setImage(UIImage(named: "arrow.right"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var arrow: UIImageView = {
+       var arrow = UIImageView(image: UIImage(systemName: "arrow.forward"))
+        arrow.translatesAutoresizingMaskIntoConstraints = false
+        return arrow
     }()
     
     private lazy var stack: UIStackView = {
        let stack = UIStackView()
+        
         stack.axis = .horizontal
+        stack.clipsToBounds = true
         stack.spacing = 8
+        stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         for item in Pokemon.makeArray().prefix(4){
             let imageCell: UIImageView = {
                 var image = UIImageView()
                 image.image = UIImage(named: item.name)
-                image.clipsToBounds = true
                 image.layer.cornerRadius = 6
                 image.backgroundColor = .gray
-                stack.addArrangedSubview(image)
                 return image
             }()
+            stack.addArrangedSubview(imageCell)
         }
         return stack
     }()
@@ -60,25 +61,30 @@ class PhotosTableViewCell: UITableViewCell {
     
     private func setupSubviews(){
         contentView.addSubview(lable)
-        contentView.addSubview(button)
+        contentView.addSubview(arrow)
         contentView.addSubview(stack)
     }
     
     private func setupLayout(){
-        NSLayoutConstraint.activate([
         
-            lable.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            lable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+        NSLayoutConstraint.activate([
+            
+            lable.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            lable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             
             stack.topAnchor.constraint(equalTo: lable.bottomAnchor, constant: 12),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor,constant: 12),
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 12),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 12),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -12),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 12),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+//            необходима корректировка
+            stack.heightAnchor.constraint(equalToConstant: 100),
             
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 12),
-            button.centerYAnchor.constraint(equalTo: lable.centerYAnchor),
-            button.bottomAnchor.constraint(equalTo: stack.topAnchor, constant: 12)
-        
+            arrow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            arrow.centerYAnchor.constraint(equalTo: lable.centerYAnchor),
+//            необходима корректировка
+            arrow.heightAnchor.constraint(equalToConstant: 25),
+            arrow.widthAnchor.constraint(equalToConstant: 23)
+            
         ])
     }
 }
