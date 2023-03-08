@@ -23,18 +23,18 @@ class PhotosTableViewCell: UITableViewCell {
     }()
     
     private lazy var arrow: UIImageView = {
-       var arrow = UIImageView(image: UIImage(systemName: "arrow.forward"))
-        arrow.translatesAutoresizingMaskIntoConstraints = false
-        return arrow
+        let arrow = UIImage(systemName: "arrow.forward")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let arrowView = UIImageView(image: arrow)
+        arrowView.translatesAutoresizingMaskIntoConstraints = false
+        return arrowView
     }()
     
     private lazy var stack: UIStackView = {
-       let stack = UIStackView()
+        let stack = UIStackView()
         
         stack.axis = .horizontal
-        stack.clipsToBounds = true
         stack.spacing = 8
-        stack.distribution = .fillEqually
+        stack.distribution = .equalSpacing
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -44,6 +44,8 @@ class PhotosTableViewCell: UITableViewCell {
                 image.image = UIImage(named: item.name)
                 image.layer.cornerRadius = 6
                 image.backgroundColor = .gray
+                image.translatesAutoresizingMaskIntoConstraints = false
+                image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
                 return image
             }()
             stack.addArrangedSubview(imageCell)
@@ -83,14 +85,9 @@ class PhotosTableViewCell: UITableViewCell {
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -12),
             stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 12),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-//            необходима корректировка
-            stack.heightAnchor.constraint(equalToConstant: 100),
             
             arrow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            arrow.centerYAnchor.constraint(equalTo: lable.centerYAnchor),
-//            необходима корректировка
-            arrow.heightAnchor.constraint(equalToConstant: 25),
-            arrow.widthAnchor.constraint(equalToConstant: 23)
+            arrow.centerYAnchor.constraint(equalTo: lable.centerYAnchor)
             
         ])
     }

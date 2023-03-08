@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileViewController: UIViewController {
     
@@ -22,12 +23,17 @@ class ProfileViewController: UIViewController {
         return table
     }()
     
+    private let header = ProfileHeaderView()
+    
+    
+    
 //    MARK: - LifeCycle
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        prepareView()
         setupConstrains()
-        setupTable()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,21 +43,24 @@ class ProfileViewController: UIViewController {
     
     //    MARK: - Function setupConstraint
     
-    func setupTable() {
+    private func prepareView() {
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    func setupConstrains(){
+        view.addSubview(header)
         view.addSubview(tableView)
+        view.backgroundColor = .white
+    }
+
+    func setupConstrains(){
+        header.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+        }
         
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor)
-            
-        ])
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(header.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
 }
 
@@ -85,15 +94,5 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let photoController = PhotosViewController()
             navigationController?.pushViewController(photoController, animated: true)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        необходима корректировка
-        return 225
     }
 }
