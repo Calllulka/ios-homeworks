@@ -30,14 +30,6 @@ func createFeedViewController() -> UINavigationController {
     return UINavigationController(rootViewController: feedViewController)
 }
 
-
-//func createProfileViewController() -> UINavigationController {
-//    let profileViewController = ProfileViewController()
-//    profileViewController.title = "Profile"
-//    profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
-//    return UINavigationController(rootViewController: profileViewController)
-//}
-
 func createLogInViewController() -> UINavigationController {
     let logInviewController = LogInViewController()
     logInviewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
