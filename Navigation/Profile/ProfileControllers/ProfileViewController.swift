@@ -27,13 +27,13 @@ class ProfileViewController: UIViewController {
     
     
     
-//    MARK: - LifeCycle
+    //    MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         setupConstrains()
-        
+        tapAvatar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +49,15 @@ class ProfileViewController: UIViewController {
         view.addSubview(header)
         view.addSubview(tableView)
         view.backgroundColor = .white
+        view.bringSubviewToFront(header)
     }
-
+    
+    private func tapAvatar() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(avatarTap(sender:)))
+        header.avatarImageView.addGestureRecognizer(tap)
+        header.avatarImageView.isUserInteractionEnabled = true
+    }
+    
     func setupConstrains(){
         header.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
@@ -61,6 +68,64 @@ class ProfileViewController: UIViewController {
             $0.top.equalTo(header.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    @objc private func avatarTap(sender: UITapGestureRecognizer) {
+        let overlay = OverlayView(frame: view.frame)
+        view.addSubview(overlay)
+        overlay.alpha = 0
+        
+        let avatar: UIImageView = {
+            let imageView = UIImageView(image: UIImage(named: "avatarImageView"))
+            imageView.layer.borderWidth = 3.0
+            imageView.layer.borderColor = UIColor.white.cgColor
+            imageView.layer.cornerRadius = 55
+            imageView.clipsToBounds = true
+            return imageView
+        }()
+        view.addSubview(avatar)
+        
+        avatar.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(63)
+            $0.leading.equalToSuperview().inset(16)
+            $0.height.equalTo(110)
+            $0.width.equalTo(110)
+            //            $0.center.equalToSuperview()
+        }
+        let button: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(named: "xmark"), for: .normal)
+            button.alpha = 0
+            return button
+        }()
+        let scale = view.frame.width / header.avatarImageView.frame.width
+        UIView.animateKeyframes(withDuration: 05,
+                                delay: 0.0,
+                                options: .calculationModeLinear,
+                                animations: {
+                                    //   первая анимация
+                                    UIView.addKeyframe(withRelativeStartTime: 0.0,
+                                                       relativeDuration: 0.625) {
+                                        overlay.alpha = 0.5
+//                                        self.view.layoutIfNeeded()
+                                        avatar.center = self.view.center
+                                        avatar.transform = CGAffineTransform(scaleX: scale, y: scale)
+                                    }
+                                    
+                                    
+                                    
+                                    //   вторая анимация
+                                    UIView.addKeyframe(withRelativeStartTime: 0.5,
+                                                       relativeDuration: 0.375) {
+                                        self.view.addSubview(button)
+                                        button.alpha = 1
+                                        button.snp.makeConstraints {
+                                            $0.top.trailing.equalToSuperview().inset(50)
+                                            $0.height.width.equalTo(50)
+                                        }
+                                    }
+                                })
+        
     }
 }
 
