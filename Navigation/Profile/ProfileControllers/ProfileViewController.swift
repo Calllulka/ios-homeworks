@@ -23,8 +23,26 @@ class ProfileViewController: UIViewController {
         return table
     }()
     
-    private let header = ProfileHeaderView()
+    private let avatar: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "avatarImageView"))
+        imageView.layer.borderWidth = 3.0
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.cornerRadius = 55
+        imageView.clipsToBounds = true
+        return imageView
+    }()
     
+    private let cross: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "xmark"), for: .normal)
+        button.alpha = 0
+        button.addTarget(self, action: #selector(xmark), for: .touchUpInside)
+        return button
+    }()
+    
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+    
+    private let header = ProfileHeaderView()
     
     
     //    MARK: - LifeCycle
@@ -33,7 +51,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         prepareView()
         setupConstrains()
-        tapAvatar()
+        setupGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,13 +64,18 @@ class ProfileViewController: UIViewController {
     private func prepareView() {
         tableView.delegate = self
         tableView.dataSource = self
-        view.addSubview(header)
-        view.addSubview(tableView)
+        
         view.backgroundColor = .white
-        view.bringSubviewToFront(header)
+        view.addSubview(tableView)
+        view.addSubview(header)
+        view.addSubview(blurView)
+        view.addSubview(avatar)
+        view.addSubview(cross)
+        blurView.isHidden = true
+        avatar.isHidden = true
     }
     
-    private func tapAvatar() {
+    private func setupGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(avatarTap(sender:)))
         header.avatarImageView.addGestureRecognizer(tap)
         header.avatarImageView.isUserInteractionEnabled = true
@@ -63,78 +86,79 @@ class ProfileViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide)
         }
+
+        blurView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(header.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+        
+        cross.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(50)
+            $0.size.equalTo(50)
+        }
+        
+        avatar.snp.makeConstraints {
+            $0.size.equalTo(110)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+        }
     }
     
     @objc private func avatarTap(sender: UITapGestureRecognizer) {
-        let overlay = OverlayView(frame: view.frame)
-        view.addSubview(overlay)
-        overlay.alpha = 0
-        
-        let avatar: UIImageView = {
-            let imageView = UIImageView(image: UIImage(named: "avatarImageView"))
-            imageView.layer.borderWidth = 3.0
-            imageView.layer.borderColor = UIColor.white.cgColor
-            imageView.layer.cornerRadius = 55
-            imageView.clipsToBounds = true
-            return imageView
-        }()
-        view.addSubview(avatar)
-        
-        avatar.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(63)
-            $0.leading.equalToSuperview().inset(16)
-            $0.height.equalTo(110)
-            $0.width.equalTo(110)
-            //            $0.center.equalToSuperview()
-        }
-        let button: UIButton = {
-            let button = UIButton()
-            button.setImage(UIImage(named: "xmark"), for: .normal)
-            button.alpha = 0
-            return button
-        }()
+        cross.isHidden = false
+        avatar.isHidden = false
+        blurView.isHidden = false
+        blurView.alpha = 0
+            
         let scale = view.frame.width / header.avatarImageView.frame.width
-        UIView.animateKeyframes(withDuration: 05,
-                                delay: 0.0,
-                                options: .calculationModeLinear,
-                                animations: {
-                                    //   первая анимация
-                                    UIView.addKeyframe(withRelativeStartTime: 0.0,
-                                                       relativeDuration: 0.625) {
-                                        overlay.alpha = 0.5
-//                                        self.view.layoutIfNeeded()
-                                        avatar.center = self.view.center
-                                        avatar.transform = CGAffineTransform(scaleX: scale, y: scale)
-                                    }
-                                    
-                                    
-                                    
-                                    //   вторая анимация
-                                    UIView.addKeyframe(withRelativeStartTime: 0.5,
-                                                       relativeDuration: 0.375) {
-                                        self.view.addSubview(button)
-                                        button.alpha = 1
-                                        button.snp.makeConstraints {
-                                            $0.top.trailing.equalToSuperview().inset(50)
-                                            $0.height.width.equalTo(50)
-                                        }
-                                    }
-                                })
         
+        UIView.animateKeyframes(withDuration: 0.8,
+                                delay: 0.1,
+                                options: .calculationModeLinear) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0,
+                               relativeDuration: 0.625) {
+                
+                self.blurView.alpha = 0.5
+                self.avatar.center = self.view.center
+                self.avatar.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.625,
+                               relativeDuration: 0.325) {
+                self.cross.alpha = 1
+            }
+        }
+    }
+    
+    @objc func xmark() {
+        
+        UIView.animateKeyframes(withDuration: 0.8,
+                                delay: 0.1,
+                                options: .calculationModeLinear) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0,
+                               relativeDuration: 0.325) {
+                self.cross.alpha = 0
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.325,
+                               relativeDuration: 0.625) {
+                self.blurView.alpha = 0
+                self.avatar.frame = self.header.avatarImageView.frame
+                self.avatar.transform = .identity
+            }
+        }
     }
 }
+
 
 //MARK: - extention
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSourse.count + 1
+        Post.make().count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

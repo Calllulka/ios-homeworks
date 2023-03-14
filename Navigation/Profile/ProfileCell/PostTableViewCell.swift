@@ -90,7 +90,7 @@ final class PostTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             labelTop.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             labelTop.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            labelTop.trailingAnchor.constraint(equalTo: trailingAnchor),
+            labelTop.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
             imageCellView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageCellView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -99,16 +99,14 @@ final class PostTableViewCell: UITableViewCell {
 
             labelTwo.topAnchor.constraint(equalTo: imageCellView.bottomAnchor, constant: 16),
             labelTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            labelTwo.trailingAnchor.constraint(equalTo: trailingAnchor),
+            labelTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
             labelLike.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            labelLike.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             labelLike.topAnchor.constraint(equalTo: labelTwo.bottomAnchor, constant: 16),
-            labelLike.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16),
-            labelLike.topAnchor.constraint(equalTo: labelTwo.bottomAnchor, constant: -16),
 
-            labelViews.topAnchor.constraint(equalTo: labelTwo.bottomAnchor, constant: 16),
-            labelViews.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            labelViews.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            labelViews.centerYAnchor.constraint(equalTo: labelLike.centerYAnchor),
+            labelViews.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
 
         ])
     }
