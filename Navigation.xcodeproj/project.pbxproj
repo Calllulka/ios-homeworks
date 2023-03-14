@@ -25,7 +25,6 @@
 		118E6552299CF117005BFB2C /* PostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E6551299CF117005BFB2C /* PostFeed.swift */; };
 		118E6555299CF4D4005BFB2C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E6554299CF4D4005BFB2C /* InfoViewController.swift */; };
 		118E656929A20BB5005BFB2C /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E656829A20BB5005BFB2C /* ProfileHeaderView.swift */; };
-		11AEEAD629BB88C600440124 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AEEAD529BB88C600440124 /* Overlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +47,6 @@
 		118E6551299CF117005BFB2C /* PostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFeed.swift; sourceTree = "<group>"; };
 		118E6554299CF4D4005BFB2C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		118E656829A20BB5005BFB2C /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		11AEEAD529BB88C600440124 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +78,6 @@
 				111549FB29A76482008C3251 /* LogInViewController.swift */,
 				118E6548299CD548005BFB2C /* ProfileViewController.swift */,
 				1172BAE029B72A7F00CE30D9 /* PhotosViewController.swift */,
-				11AEEAD529BB88C600440124 /* Overlay.swift */,
 			);
 			path = ProfileControllers;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 				1172BAD829B690D600CE30D9 /* PostTableViewCell.swift in Sources */,
 				118E6552299CF117005BFB2C /* PostFeed.swift in Sources */,
 				1172BAD229B6860B00CE30D9 /* Pokemon.swift in Sources */,
-				11AEEAD629BB88C600440124 /* Overlay.swift in Sources */,
 				118E652F299CCBD0005BFB2C /* AppDelegate.swift in Sources */,
 				1172BAE529B72BEE00CE30D9 /* PhotosCollectionViewCell.swift in Sources */,
 				1172BAE129B72A7F00CE30D9 /* PhotosViewController.swift in Sources */,

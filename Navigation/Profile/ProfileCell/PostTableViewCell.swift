@@ -13,7 +13,7 @@ final class PostTableViewCell: UITableViewCell {
     
     static let id = "ProfileCell"
 
-    private var labelTop: UILabel = {
+    private var postAuthor: UILabel = {
        var label = UILabel()
         label.text = "Kventin Tarantino"
         label.textColor = .black
@@ -31,7 +31,7 @@ final class PostTableViewCell: UITableViewCell {
         return image
     }()
 
-    private var labelTwo: UILabel = {
+    private var postDescription: UILabel = {
        var label = UILabel()
         label.numberOfLines = 0
         label.textColor = .systemGray
@@ -40,7 +40,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
 
-    private var labelLike: UILabel = {
+    private var postLikes: UILabel = {
        let like = UILabel()
         like.textColor = .black
         like.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -48,7 +48,7 @@ final class PostTableViewCell: UITableViewCell {
         return like
     }()
 
-    private var labelViews: UILabel = {
+    private var postViews: UILabel = {
        let views = UILabel()
         views.textColor = .black
         views.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -72,41 +72,41 @@ final class PostTableViewCell: UITableViewCell {
     
     func configure(with post: Post) {
         imageCellView.image = UIImage(named: post.image)
-        labelTop.text = post.author
-        labelTwo.text = post.description
-        labelLike.text = String("Likes: \(post.likes)")
-        labelViews.text = String("Views: \(post.views)")
+        postAuthor.text = post.author
+        postDescription.text = post.description
+        postLikes.text = String("Likes: \(post.likes)")
+        postViews.text = String("Views: \(post.views)")
 
     }
 
     func addConstraints() {
 
-        addSubview(labelTop)
-        addSubview(labelTwo)
-        addSubview(labelLike)
-        addSubview(labelViews)
+        addSubview(postAuthor)
+        addSubview(postDescription)
+        addSubview(postLikes)
+        addSubview(postViews)
         addSubview(imageCellView)
 
         NSLayoutConstraint.activate([
-            labelTop.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            labelTop.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            labelTop.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            postAuthor.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            postAuthor.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            postAuthor.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
             imageCellView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageCellView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageCellView.topAnchor.constraint(equalTo: labelTop.bottomAnchor,constant: 12),
+            imageCellView.topAnchor.constraint(equalTo: postAuthor.bottomAnchor,constant: 12),
             imageCellView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
 
-            labelTwo.topAnchor.constraint(equalTo: imageCellView.bottomAnchor, constant: 16),
-            labelTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            labelTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            postDescription.topAnchor.constraint(equalTo: imageCellView.bottomAnchor, constant: 16),
+            postDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            postDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
-            labelLike.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            labelLike.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            labelLike.topAnchor.constraint(equalTo: labelTwo.bottomAnchor, constant: 16),
+            postLikes.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            postLikes.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            postLikes.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: 16),
 
-            labelViews.centerYAnchor.constraint(equalTo: labelLike.centerYAnchor),
-            labelViews.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            postViews.centerYAnchor.constraint(equalTo: postLikes.centerYAnchor),
+            postViews.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
 
         ])
     }

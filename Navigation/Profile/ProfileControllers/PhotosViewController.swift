@@ -78,17 +78,18 @@ class PhotosViewController: UIViewController {
 //    MARK: - Extension DataSourse
 
 extension PhotosViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         pokemonArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.reuseId, for: indexPath) as? PhotosCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.reuseId, for: indexPath) as? PhotosCollectionViewCell else {return UICollectionViewCell()}
         
         let pokemonArr = pokemonArray[indexPath.row]
-        cell!.setup(with: pokemonArr)
+        cell.setup(with: pokemonArr)
         
-        return cell!
+        return cell
     }
 }
 

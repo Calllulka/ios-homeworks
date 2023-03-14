@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     
     private var dataSourse = Post.make()
     
+    private var avatarOriginPoint = CGPoint()
+    
     private let tableView: UITableView = {
         let table = UITableView()
         table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.id)
@@ -114,6 +116,8 @@ class ProfileViewController: UIViewController {
         blurView.isHidden = false
         blurView.alpha = 0
             
+        avatarOriginPoint = avatar.center
+        
         let scale = view.frame.width / header.avatarImageView.frame.width
         
         UIView.animateKeyframes(withDuration: 0.8,
@@ -123,7 +127,8 @@ class ProfileViewController: UIViewController {
                                relativeDuration: 0.625) {
                 
                 self.blurView.alpha = 0.5
-                self.avatar.center = self.view.center
+                self.avatar.center = CGPoint(x: UIScreen.main.bounds.midX,
+                                             y: UIScreen.main.bounds.midY)
                 self.avatar.transform = CGAffineTransform(scaleX: scale, y: scale)
             }
             UIView.addKeyframe(withRelativeStartTime: 0.625,
@@ -144,8 +149,9 @@ class ProfileViewController: UIViewController {
             }
             UIView.addKeyframe(withRelativeStartTime: 0.325,
                                relativeDuration: 0.625) {
+                
+                self.avatar.center = self.avatarOriginPoint
                 self.blurView.alpha = 0
-                self.avatar.frame = self.header.avatarImageView.frame
                 self.avatar.transform = .identity
             }
         }
