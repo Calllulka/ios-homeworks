@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     
@@ -66,8 +67,11 @@ class ProfileViewController: UIViewController {
     private func prepareView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
+        #if DEBUG
         view.backgroundColor = .white
+        #else
+        view.backgroundColor = .black
+        #endif
         view.addSubview(tableView)
         view.addSubview(header)
         view.addSubview(blurView)

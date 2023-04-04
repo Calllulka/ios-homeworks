@@ -7,15 +7,15 @@
 
 import UIKit
 
-struct Post {
-        let author: String
-        var description: String
-        let image: String
-        var likes: Int
-        var views: Int
+public struct Post {
+    public let author: String
+    public var description: String
+    public let image: String
+    public var likes: Int
+    public var views: Int
 }
 
-extension Post {
+public extension Post {
     static func make() -> [Post] {
         [Post(author: "Александр Барыкин",
               description: "I will ride the bike for a long time",
