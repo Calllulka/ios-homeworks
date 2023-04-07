@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LogInViewController: UIViewController {
     
@@ -18,14 +19,11 @@ class LogInViewController: UIViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = .white
         
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
         return scrollView
     }()
     
     private lazy var logo: UIImageView = {
         var logo = UIImageView(image: UIImage(named: "logo"))
-        logo.translatesAutoresizingMaskIntoConstraints = false
         return logo
     }()
     
@@ -69,7 +67,6 @@ class LogInViewController: UIViewController {
             return password
         }()
         
-        authorization.translatesAutoresizingMaskIntoConstraints = false
         authorization.clipsToBounds = true
         authorization.layer.cornerRadius = 10
         authorization.layer.borderColor = UIColor.lightGray.cgColor
@@ -89,7 +86,6 @@ class LogInViewController: UIViewController {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "MyColor")
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.setTitle("Log in", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -123,28 +119,27 @@ class LogInViewController: UIViewController {
     //    MARK: - Methods
     
     func makeConstraints() {
-        NSLayoutConstraint.activate([
-            logo.widthAnchor.constraint(equalToConstant: 100),
-            logo.heightAnchor.constraint(equalToConstant: 100),
-            logo.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            logo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120),
-            
-            authorization.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
-            authorization.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            authorization.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32),
-            authorization.heightAnchor.constraint(equalToConstant: 100),
-            
-            button.topAnchor.constraint(equalTo: authorization.bottomAnchor, constant: 16),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            button.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.bottomAnchor.constraint(greaterThanOrEqualTo: scrollView.bottomAnchor),
-            
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        logo.snp.makeConstraints {
+            $0.size.equalTo(100)
+            $0.centerX.equalTo(scrollView.snp.centerX)
+            $0.top.equalTo(scrollView.snp.top).inset(120)
+        }
+        authorization.snp.makeConstraints {
+            $0.top.equalTo(logo.snp.bottom).offset(120)
+            $0.left.equalTo(scrollView.snp.left).inset(16)
+            $0.width.equalTo(scrollView.snp.width).offset(-32)
+            $0.height.equalTo(100)
+        }
+        button.snp.makeConstraints {
+            $0.top.equalTo(authorization.snp.bottom).offset(16)
+            $0.left.equalTo(scrollView.snp.left).inset(16)
+            $0.width.equalTo(scrollView.snp.width).offset(-32)
+            $0.height.equalTo(50)
+            $0.bottom.equalTo(scrollView.snp.bottom)
+        }
     }
     
     @objc func buttonTouch() {

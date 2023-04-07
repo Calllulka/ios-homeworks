@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController {
         let table = UITableView()
         table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.id)
         table.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.reuseId)
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.estimatedRowHeight = 70
         return table
     }()
