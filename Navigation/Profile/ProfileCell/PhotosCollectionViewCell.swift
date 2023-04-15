@@ -15,8 +15,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -48,12 +46,9 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayouts() {
-        NSLayoutConstraint.activate([
-            profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            profileImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            profileImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        profileImageView.snp.makeConstraints {
+            $0.edges.equalTo(contentView)
+        }
     }
     
     // MARK: - Public

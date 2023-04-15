@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class FeedViewController: UIViewController {
     
@@ -31,7 +32,6 @@ class FeedViewController: UIViewController {
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.clipsToBounds = true
         
         stackView.axis = .vertical
@@ -61,14 +61,18 @@ class FeedViewController: UIViewController {
     }
     
     private func addConstraintsStackView() {
-        let safeArea = view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
-        ])
+//        let safeArea = view.safeAreaLayoutGuide
+//
+//        NSLayoutConstraint.activate([
+//            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+//            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+//            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+//            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+//        ])
+//        
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
 }

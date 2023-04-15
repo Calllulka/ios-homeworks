@@ -20,7 +20,6 @@ class ProfileHeaderView: UIView {
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = 55
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -29,7 +28,6 @@ class ProfileHeaderView: UIView {
         lable.text = "Kventin Tarantino"
         lable.textColor = .black
         lable.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        lable.translatesAutoresizingMaskIntoConstraints = false
         return lable
     }()
     
@@ -38,7 +36,6 @@ class ProfileHeaderView: UIView {
         lable.text = "Waiting for something..."
         lable.textColor = .gray
         lable.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        lable.translatesAutoresizingMaskIntoConstraints = false
         return lable
     }()
     
@@ -52,7 +49,6 @@ class ProfileHeaderView: UIView {
         button.layer.cornerRadius = 4.0
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         return button
     }()
@@ -65,7 +61,6 @@ class ProfileHeaderView: UIView {
         textField.layer.cornerRadius = 12
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
         textField.textAlignment = .center
         return textField

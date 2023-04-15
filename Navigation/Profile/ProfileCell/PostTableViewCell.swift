@@ -7,20 +7,22 @@
 
 import UIKit
 import StorageService
+import SnapKit
+import iOSIntPackage
 
 final class PostTableViewCell: UITableViewCell {
 
 //    MARK: - Property
     
     static let id = "ProfileCell"
-
+    
+    let process = ImageProcessor()
+    
     private var postAuthor: UILabel = {
        var label = UILabel()
-        label.text = "Kventin Tarantino"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -28,7 +30,6 @@ final class PostTableViewCell: UITableViewCell {
        var image = UIImageView(image: UIImage(named: "ImageOne"))
         image.backgroundColor = .black
         image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
@@ -37,7 +38,6 @@ final class PostTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.textColor = .systemGray
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -45,7 +45,6 @@ final class PostTableViewCell: UITableViewCell {
        let like = UILabel()
         like.textColor = .black
         like.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        like.translatesAutoresizingMaskIntoConstraints = false
         return like
     }()
 
@@ -53,7 +52,6 @@ final class PostTableViewCell: UITableViewCell {
        let views = UILabel()
         views.textColor = .black
         views.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        views.translatesAutoresizingMaskIntoConstraints = false
         views.textAlignment = .right
         return views
     }()
@@ -72,7 +70,10 @@ final class PostTableViewCell: UITableViewCell {
 //    MARK: - Function
     
     func configure(with post: Post) {
-        imageCellView.image = UIImage(named: post.image)
+        process.processImage(sourceImage: UIImage(named: post.image) ?? UIImage(), filter: .colorInvert) { img in
+            imageCellView.image = img
+        }
+        
         postAuthor.text = post.author
         postDescription.text = post.description
         postLikes.text = String("Likes: \(post.likes)")
@@ -88,27 +89,25 @@ final class PostTableViewCell: UITableViewCell {
         addSubview(postViews)
         addSubview(imageCellView)
 
-        NSLayoutConstraint.activate([
-            postAuthor.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            postAuthor.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            postAuthor.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-
-            imageCellView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageCellView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageCellView.topAnchor.constraint(equalTo: postAuthor.bottomAnchor,constant: 12),
-            imageCellView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-
-            postDescription.topAnchor.constraint(equalTo: imageCellView.bottomAnchor, constant: 16),
-            postDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            postDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-
-            postLikes.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            postLikes.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            postLikes.topAnchor.constraint(equalTo: postDescription.bottomAnchor, constant: 16),
-
-            postViews.centerYAnchor.constraint(equalTo: postLikes.centerYAnchor),
-            postViews.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-
-        ])
+        postAuthor.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview().inset(16)
+        }
+        imageCellView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(postAuthor.snp.bottom).offset(12)
+        }
+        postDescription.snp.makeConstraints {
+            $0.top.equalTo(imageCellView.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+        postLikes.snp.makeConstraints {
+            $0.top.equalTo(postDescription.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().offset(-16)
+        }
+        postViews.snp.makeConstraints {
+            $0.centerY.equalTo(postLikes.snp.centerY)
+            $0.trailing.equalToSuperview().inset(16)
+        }
     }
 }

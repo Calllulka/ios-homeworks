@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class PhotosViewController: UIViewController {
 
@@ -18,7 +19,6 @@ class PhotosViewController: UIViewController {
         
         var collection = UICollectionView(frame: .zero,
                                           collectionViewLayout: viewLayout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
         collection.backgroundColor = .white
         
         collection.register(PhotosCollectionViewCell.self,
@@ -60,14 +60,9 @@ class PhotosViewController: UIViewController {
     }
     
     private func setupLayouts() {
-        let safeAreaGuide = view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor)
-        ])
+        collectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     private enum LayoutConstant {
