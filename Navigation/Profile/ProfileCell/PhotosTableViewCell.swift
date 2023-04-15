@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class PhotosTableViewCell: UITableViewCell {
     
@@ -18,14 +19,12 @@ class PhotosTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.text = "Photos"
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var arrow: UIImageView = {
         let arrow = UIImage(systemName: "arrow.forward")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         let arrowView = UIImageView(image: arrow)
-        arrowView.translatesAutoresizingMaskIntoConstraints = false
         return arrowView
     }()
     
@@ -35,8 +34,6 @@ class PhotosTableViewCell: UITableViewCell {
         stack.axis = .horizontal
         stack.spacing = 8
         stack.distribution = .equalSpacing
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        
         
         for item in Pokemon.makeArray().prefix(4){
             let imageCell: UIImageView = {
@@ -44,7 +41,6 @@ class PhotosTableViewCell: UITableViewCell {
                 image.image = UIImage(named: item.name)
                 image.layer.cornerRadius = 6
                 image.backgroundColor = .gray
-                image.translatesAutoresizingMaskIntoConstraints = false
                 image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
                 return image
             }()
@@ -76,20 +72,17 @@ class PhotosTableViewCell: UITableViewCell {
     
     private func setupLayout(){
         
-        NSLayoutConstraint.activate([
-            
-            lable.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            lable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            
-            stack.topAnchor.constraint(equalTo: lable.bottomAnchor, constant: 12),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -12),
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 12),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            
-            arrow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            arrow.centerYAnchor.constraint(equalTo: lable.centerYAnchor)
-            
-        ])
+        lable.snp.makeConstraints {
+            $0.top.leading.equalTo(contentView).inset(12)
+        }
+        stack.snp.makeConstraints {
+            $0.top.equalTo(lable.snp.bottom).offset(12)
+            $0.bottom.leading.trailing.equalTo(contentView).inset(12)
+        }
+        arrow.snp.makeConstraints {
+            $0.trailing.equalTo(contentView).offset(-12)
+            $0.centerY.equalTo(lable.snp.centerY)
+        }
     }
 }
 
