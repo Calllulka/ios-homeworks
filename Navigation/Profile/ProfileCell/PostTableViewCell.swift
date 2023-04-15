@@ -70,7 +70,7 @@ final class PostTableViewCell: UITableViewCell {
 //    MARK: - Function
     
     func configure(with post: Post) {
-        process.processImage(sourceImage: UIImage(named: post.image) ?? UIImage(), filter: .colorInvert) { img in
+        process.processImage(sourceImage: UIImage(named: post.image) ?? UIImage(), filter: .chrome) { img in
             imageCellView.image = img
         }
         

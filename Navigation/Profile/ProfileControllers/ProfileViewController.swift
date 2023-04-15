@@ -13,6 +13,12 @@ class ProfileViewController: UIViewController {
     
     //    MARK: - Property
     
+    var user: User? = nil {
+        didSet {
+            prepareHeader()
+        }
+    }
+    
     private var dataSourse = Post.make()
     
     private var avatarOriginPoint = CGPoint()
@@ -26,7 +32,7 @@ class ProfileViewController: UIViewController {
     }()
     
     private let avatar: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "avatarImageView"))
+        var imageView = UIImageView(image: UIImage(named: "avatarImageView"))
         imageView.layer.borderWidth = 3.0
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = 55
@@ -67,9 +73,9 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         #if DEBUG
-        view.backgroundColor = .white
+        view.backgroundColor = .orange
         #else
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         #endif
         view.addSubview(tableView)
         view.addSubview(header)
@@ -111,6 +117,12 @@ class ProfileViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
+    }
+    
+    private func prepareHeader() {
+        header.avatarImageView.image = user?.avatar
+        header.fullNameLabel.text = user?.name
+        header.statusLabel.text = user?.status
     }
     
     @objc private func avatarTap(sender: UITapGestureRecognizer) {

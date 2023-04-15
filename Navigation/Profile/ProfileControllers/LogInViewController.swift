@@ -12,6 +12,8 @@ class LogInViewController: UIViewController {
     
     // MARK: - Property
     
+    private let currentUserService: UserService
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         
@@ -27,26 +29,26 @@ class LogInViewController: UIViewController {
         return logo
     }()
     
+    private var login: UITextField = {
+        let login = UITextField()
+        login.textColor = .black
+        login.text = ""
+        login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        login.autocapitalizationType = .none
+        login.tintColor = .black
+        login.backgroundColor = .systemGray6
+        login.placeholder = "Email or phone"
+        login.leftViewMode = .always
+        login.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+        login.rightViewMode = .always
+        login.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+        login.returnKeyType = UIReturnKeyType.done
+        login.keyboardType = .default
+        return login
+    }()
+    
     private lazy var authorization: UIStackView = {
         let authorization = UIStackView()
-        
-        var login: UITextField = {
-            let login = UITextField()
-            login.textColor = .black
-            login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-            login.autocapitalizationType = .none
-            login.tintColor = .black
-            login.backgroundColor = .systemGray6
-            login.placeholder = "Email or phone"
-            login.leftViewMode = .always
-            login.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-            login.rightViewMode = .always
-            login.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-            login.returnKeyType = UIReturnKeyType.done
-            login.keyboardType = .default
-            login.delegate = self
-            return login
-        }()
         
         var password: UITextField = {
             let password = UITextField()
@@ -94,6 +96,15 @@ class LogInViewController: UIViewController {
     }()
     
     //    MARK: - LifeCycle
+    
+    init(currntUserService: UserService) {
+        self.currentUserService = currntUserService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,8 +154,13 @@ class LogInViewController: UIViewController {
     }
     
     @objc func buttonTouch() {
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
+        if let user = currentUserService.currentLogin(login: login.text!) {
+            let profileViewController = ProfileViewController()
+            profileViewController.user = user
+            navigationController?.pushViewController(profileViewController, animated: true)
+        } else {
+            login.text = "kek"
+        }
     }
     
     func setupKeyboardObservers() {
@@ -192,3 +208,4 @@ extension LogInViewController: UITextFieldDelegate {
         return true
     }
 }
+

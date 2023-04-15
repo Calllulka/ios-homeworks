@@ -31,7 +31,13 @@ func createFeedViewController() -> UINavigationController {
 }
 
 func createLogInViewController() -> UINavigationController {
-    let logInviewController = LogInViewController()
+    let user = User()
+    #if DEBUG
+    let currentUserService = TestUserService(user: user)
+    #else
+    let currentUserService = CurrentUserService(user: user)
+    #endif
+    let logInviewController = LogInViewController(currntUserService: currentUserService)
     logInviewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 1)
     
     return UINavigationController(rootViewController: logInviewController)
