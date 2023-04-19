@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "iOSIntPackage",
+        "repositoryURL": "https://github.com/TrueMax/iOSIntPackage",
+        "state": {
+          "branch": null,
+          "revision": "e1cc0e1b76d7cb8f770d903d85ae9ed91ae026bd",
+          "version": "3.2.3"
+        }
+      },
+      {
         "package": "SnapKit",
         "repositoryURL": "https://github.com/SnapKit/SnapKit.git",
         "state": {

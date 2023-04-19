@@ -11,7 +11,7 @@ import SnapKit
 class ProfileHeaderView: UIView {
     
     //    MARK: property
-
+    
     var statusText: String?
     
     var avatarImageView: UIImageView = {
