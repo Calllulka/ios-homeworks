@@ -31,6 +31,9 @@
 		11A87E4629DC1B2100C61942 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172BADA29B6949700CE30D9 /* Post.swift */; };
 		11F1B1B129EA96500087F35D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11F1B1B029EA96500087F35D /* SnapKit */; };
 		11F1B1BB29EA96EB0087F35D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1BA29EA96EB0087F35D /* UserService.swift */; };
+		11F1B1E429F01C080087F35D /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1E329F01C080087F35D /* Checker.swift */; };
+		11F1B1EA29F01FC30087F35D /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1E929F01FC30087F35D /* LoginInspector.swift */; };
+		11F1B1F029F05B030087F35D /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1EF29F05B030087F35D /* LoginFactory.swift */; };
 		11F965B529E048A700EF7FA2 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 11F965B429E048A700EF7FA2 /* iOSIntPackage */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +102,9 @@
 		11A87E2129DAF82C00C61942 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		11A87E2329DAF82C00C61942 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11F1B1BA29EA96EB0087F35D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		11F1B1E329F01C080087F35D /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		11F1B1E929F01FC30087F35D /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
+		11F1B1EF29F05B030087F35D /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +230,7 @@
 		118E656729A20B97005BFB2C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				11F1B1E229F01BF60087F35D /* Service */,
 				1172BACD29B682A900CE30D9 /* ProfileData */,
 				1172BACC29B6829700CE30D9 /* ProfileControllers */,
 				11154A0529ACCED1008C3251 /* ProfileCell */,
@@ -248,6 +255,16 @@
 				11A87E2329DAF82C00C61942 /* Info.plist */,
 			);
 			path = StorageServiceTests;
+			sourceTree = "<group>";
+		};
+		11F1B1E229F01BF60087F35D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				11F1B1E329F01C080087F35D /* Checker.swift */,
+				11F1B1E929F01FC30087F35D /* LoginInspector.swift */,
+				11F1B1EF29F05B030087F35D /* LoginFactory.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +426,7 @@
 				11F1B1BB29EA96EB0087F35D /* UserService.swift in Sources */,
 				111549FC29A76482008C3251 /* LogInViewController.swift in Sources */,
 				118E6549299CD548005BFB2C /* ProfileViewController.swift in Sources */,
+				11F1B1EA29F01FC30087F35D /* LoginInspector.swift in Sources */,
 				118E6555299CF4D4005BFB2C /* InfoViewController.swift in Sources */,
 				1172BAD829B690D600CE30D9 /* PostTableViewCell.swift in Sources */,
 				118E6552299CF117005BFB2C /* PostFeed.swift in Sources */,
@@ -416,6 +434,8 @@
 				118E652F299CCBD0005BFB2C /* AppDelegate.swift in Sources */,
 				1172BAE529B72BEE00CE30D9 /* PhotosCollectionViewCell.swift in Sources */,
 				1172BAE129B72A7F00CE30D9 /* PhotosViewController.swift in Sources */,
+				11F1B1F029F05B030087F35D /* LoginFactory.swift in Sources */,
+				11F1B1E429F01C080087F35D /* Checker.swift in Sources */,
 				118E654D299CDF4F005BFB2C /* PostViewController.swift in Sources */,
 				118E656929A20BB5005BFB2C /* ProfileHeaderView.swift in Sources */,
 			);
