@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol LoginViewControllerDelegate: AnyObject {
+    func check(login: String, password: String) -> User?
+}
+
+
 class LogInViewController: UIViewController {
     
     // MARK: - Property
     
-    private let currentUserService: UserService
+    var loginDelegate: LoginViewControllerDelegate?
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -29,7 +34,7 @@ class LogInViewController: UIViewController {
         return logo
     }()
     
-    private var login: UITextField = {
+    private lazy var login: UITextField = {
         let login = UITextField()
         login.textColor = .black
         login.text = ""
@@ -44,30 +49,31 @@ class LogInViewController: UIViewController {
         login.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
         login.returnKeyType = UIReturnKeyType.done
         login.keyboardType = .default
+        login.delegate = self
         return login
+    }()
+    
+    private lazy var password: UITextField = {
+        let password = UITextField()
+        password.textColor = .black
+        password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        password.autocapitalizationType = .none
+        password.tintColor = .black
+        password.isSecureTextEntry = true
+        password.backgroundColor = .systemGray6
+        password.placeholder = "Password"
+        password.leftViewMode = .always
+        password.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+        password.rightViewMode = .always
+        password.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+        password.returnKeyType = UIReturnKeyType.done
+        password.keyboardType = .default
+        password.delegate = self
+        return password
     }()
     
     private lazy var authorization: UIStackView = {
         let authorization = UIStackView()
-        
-        var password: UITextField = {
-            let password = UITextField()
-            password.textColor = .black
-            password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-            password.autocapitalizationType = .none
-            password.tintColor = .black
-            password.isSecureTextEntry = true
-            password.backgroundColor = .systemGray6
-            password.placeholder = "Password"
-            password.leftViewMode = .always
-            password.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-            password.rightViewMode = .always
-            password.rightView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
-            password.returnKeyType = UIReturnKeyType.done
-            password.keyboardType = .default
-            password.delegate = self
-            return password
-        }()
         
         authorization.clipsToBounds = true
         authorization.layer.cornerRadius = 10
@@ -97,8 +103,7 @@ class LogInViewController: UIViewController {
     
     //    MARK: - LifeCycle
     
-    init(currntUserService: UserService) {
-        self.currentUserService = currntUserService
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -154,13 +159,25 @@ class LogInViewController: UIViewController {
     }
     
     @objc func buttonTouch() {
-        if let user = currentUserService.currentLogin(login: login.text!) {
+        guard let loginText = login.text,
+              let passwordText = password.text
+        else {
+            return
+        }
+        
+        if let user = loginDelegate?.check(login: loginText, password: passwordText) {
             let profileViewController = ProfileViewController()
             profileViewController.user = user
             navigationController?.pushViewController(profileViewController, animated: true)
         } else {
-            login.text = "kek"
+            let alert = UIAlertController(title: "Неверный логин или пароль", message: "", preferredStyle: .alert)
+            let dismissAlert = UIAlertAction(title: "Закрыть", style: .cancel) {_ in
+                alert.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(dismissAlert)
+            present(alert, animated: true, completion: nil)
         }
+        
     }
     
     func setupKeyboardObservers() {
