@@ -11,14 +11,12 @@ protocol UserService {
     func currentLogin(login: String) -> User?
 }
 
-class User {
-    var login = "Kventin"
-    var password = "1234"
-    var name = "KventinTarantino"
-    var status = "I love swift"
-    var avatar: UIImage = UIImage(named: "avatarImageView")!
-    
-    init() {}
+struct User {
+    var login: String
+    var password: String
+    var name: String
+    var status: String
+    var avatar: UIImage
 }
 
 class CurrentUserService: UserService {
@@ -28,21 +26,8 @@ class CurrentUserService: UserService {
         self.user = user
     }
     
-    func currentLogin(login: String) -> User? {
-        user.login == login ? user : nil
-    }
-}
-
-class TestUserService: UserService {
-    private let user: User
-
-    init(user: User) {
-        self.user = user
-        self.user.avatar = UIImage(named: "Test")!
-        self.user.login = "Test"
-        self.user.name = "TestName"
-        self.user.password = "TestPassword"
-        self.user.status = "TestStatus"
+    deinit {
+        print("serv end")
     }
     
     func currentLogin(login: String) -> User? {
