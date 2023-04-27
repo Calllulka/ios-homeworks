@@ -37,7 +37,7 @@ class LogInViewController: UIViewController {
     private lazy var login: UITextField = {
         let login = UITextField()
         login.textColor = .black
-        login.text = ""
+        login.text = "kek"
         login.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         login.autocapitalizationType = .none
         login.tintColor = .black
@@ -55,6 +55,7 @@ class LogInViewController: UIViewController {
     
     private lazy var password: UITextField = {
         let password = UITextField()
+        password.text = "111"
         password.textColor = .black
         password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         password.autocapitalizationType = .none

@@ -38,9 +38,9 @@ class PhotosTableViewCell: UITableViewCell {
         for item in Pokemon.makeArray().prefix(4){
             let imageCell: UIImageView = {
                 var image = UIImageView()
-                image.image = UIImage(named: item.name)
+                image.image = item
                 image.layer.cornerRadius = 6
-                image.backgroundColor = .gray
+                image.backgroundColor = .systemGray6
                 image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
                 return image
             }()
