@@ -8,7 +8,6 @@
 import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
-    
     static let reuseId = "PhotosCollectionViewCell"
     
     // MARK: - Subviews
@@ -53,7 +52,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public
     
-    func setup(with pokemon: Pokemon) {
-        profileImageView.image = UIImage(named: pokemon.name)
+    func setup(with pokemon: UIImage) {
+        profileImageView.image = pokemon
     }
 }

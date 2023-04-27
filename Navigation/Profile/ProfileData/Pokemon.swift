@@ -10,26 +10,28 @@ struct Pokemon {
     
     let name: String
     
-    static func makeArray() -> [Pokemon] {
-        [Pokemon.init(name: "Image-1"),
-        Pokemon.init(name: "Image-2"),
-        Pokemon.init(name: "Image-3"),
-        Pokemon.init(name: "Image-4"),
-        Pokemon.init(name: "Image-5"),
-        Pokemon.init(name: "Image-6"),
-        Pokemon.init(name: "Image-7"),
-        Pokemon.init(name: "Image-8"),
-        Pokemon.init(name: "Image-9"),
-        Pokemon.init(name: "Image-10"),
-        Pokemon.init(name: "Image-11"),
-        Pokemon.init(name: "Image-12"),
-        Pokemon.init(name: "Image-13"),
-        Pokemon.init(name: "Image-14"),
-        Pokemon.init(name: "Image-15"),
-        Pokemon.init(name: "Image-16"),
-        Pokemon.init(name: "Image-17"),
-        Pokemon.init(name: "Image-18"),
-        Pokemon.init(name: "Image-19"),
-        Pokemon.init(name: "Image-20"),]
+    static func makeArray() -> [UIImage] {
+        let array = [UIImage(named: "Image-1")!,
+        UIImage(named: "Image-2"),
+        UIImage(named: "Image-3"),
+        UIImage(named: "Image-4"),
+        UIImage(named: "Image-5"),
+        UIImage(named: "Image-6"),
+        UIImage(named: "Image-7"),
+        UIImage(named: "Image-8"),
+        UIImage(named: "Image-9"),
+        UIImage(named: "Image-10"),
+        UIImage(named: "Image-11"),
+        UIImage(named: "Image-12"),
+        UIImage(named: "Image-13"),
+        UIImage(named: "Image-14"),
+        UIImage(named: "Image-15"),
+        UIImage(named: "Image-16"),
+        UIImage(named: "Image-17"),
+        UIImage(named: "Image-18"),
+        UIImage(named: "Image-19"),
+        UIImage(named: "Image-20")
+        ]
+        return array.compactMap { $0 }
     }
 }

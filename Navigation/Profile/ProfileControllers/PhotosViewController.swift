@@ -7,12 +7,15 @@
 
 import UIKit
 import SnapKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
     //    MARK: - Property
     
-    fileprivate lazy var pokemonArray = Pokemon.makeArray()
+    fileprivate lazy var pokemonArray: [UIImage] = []
+    
+    private var facade = ImagePublisherFacade()
     
     private lazy var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -34,6 +37,9 @@ class PhotosViewController: UIViewController {
         setupView()
         setupSubviews()
         setupLayouts()
+        facade.subscribe(self)
+        facade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Pokemon.makeArray())
+//        receive(images: pokemonArray)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +73,7 @@ class PhotosViewController: UIViewController {
     
     private enum LayoutConstant {
             static let spacing: CGFloat = 8
-        }
+    }
 }
 
 //    MARK: - Extension DataSourse
@@ -83,7 +89,6 @@ extension PhotosViewController: UICollectionViewDataSource {
         
         let pokemonArr = pokemonArray[indexPath.row]
         cell.setup(with: pokemonArr)
-        
         return cell
     }
 }
@@ -152,5 +157,14 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         forItemAt indexPath: IndexPath
     ) {
         cell.contentView.backgroundColor = .systemGray6
+    }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+
+    func receive(images: [UIImage]) {
+        pokemonArray = images
+        let indexPath = IndexPath(row: pokemonArray.count - 1, section: 0)
+        collectionView.insertItems(at: [indexPath])
     }
 }
