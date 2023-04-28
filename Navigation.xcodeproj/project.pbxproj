@@ -35,6 +35,8 @@
 		11F1B1EA29F01FC30087F35D /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1E929F01FC30087F35D /* LoginInspector.swift */; };
 		11F1B1F029F05B030087F35D /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1EF29F05B030087F35D /* LoginFactory.swift */; };
 		11F1B20129F6733A0087F35D /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 11F1B20029F6733A0087F35D /* iOSIntPackage */; };
+		11F1B21129FA70540087F35D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B21029FA70540087F35D /* CustomButton.swift */; };
+		11F1B21529FA9D0E0087F35D /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B21429FA9D0E0087F35D /* FeedModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		11F1B1E329F01C080087F35D /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		11F1B1E929F01FC30087F35D /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		11F1B1EF29F05B030087F35D /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
+		11F1B21029FA70540087F35D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		11F1B21429FA9D0E0087F35D /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +219,7 @@
 				118E6545299CD531005BFB2C /* FeedViewController.swift */,
 				118E654C299CDF4F005BFB2C /* PostViewController.swift */,
 				118E6554299CF4D4005BFB2C /* InfoViewController.swift */,
+				11F1B21429FA9D0E0087F35D /* FeedModel.swift */,
 			);
 			path = FeedControllers;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				11F1B1E329F01C080087F35D /* Checker.swift */,
 				11F1B1E929F01FC30087F35D /* LoginInspector.swift */,
 				11F1B1EF29F05B030087F35D /* LoginFactory.swift */,
+				11F1B21029FA70540087F35D /* CustomButton.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -421,11 +427,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				118E6533299CCBD0005BFB2C /* ViewController.swift in Sources */,
+				11F1B21129FA70540087F35D /* CustomButton.swift in Sources */,
 				1172BAC829B6824900CE30D9 /* PhotosTableViewCell.swift in Sources */,
 				118E6546299CD531005BFB2C /* FeedViewController.swift in Sources */,
 				11F1B1BB29EA96EB0087F35D /* UserService.swift in Sources */,
 				111549FC29A76482008C3251 /* LogInViewController.swift in Sources */,
 				118E6549299CD548005BFB2C /* ProfileViewController.swift in Sources */,
+				11F1B21529FA9D0E0087F35D /* FeedModel.swift in Sources */,
 				11F1B1EA29F01FC30087F35D /* LoginInspector.swift in Sources */,
 				118E6555299CF4D4005BFB2C /* InfoViewController.swift in Sources */,
 				1172BAD829B690D600CE30D9 /* PostTableViewCell.swift in Sources */,
