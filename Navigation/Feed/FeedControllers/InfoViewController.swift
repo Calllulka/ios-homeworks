@@ -9,19 +9,16 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    var button: UIButton = {
-        let button = UIButton()
-        button.setTitle("press ME", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
-        button.addTarget(self, action: #selector(addUIAlert), for: .touchUpInside)
-        return button
-    }()
+    var button = CustomButton(title: "press ME", color: .systemBlue, titleColor: .black)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
         view.addSubview(button)
+        button.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
+        button.action = {
+            self.addUIAlert()
+        }
     }
     
     @objc func addUIAlert(){

@@ -92,15 +92,11 @@ class LogInViewController: UIViewController {
         return authorization
     }()
     
-    private lazy var button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "MyColor")
-        button.layer.cornerRadius = 10
-        button.setTitle("Log in", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(buttonTouch), for: .touchUpInside)
-        return button
-    }()
+    private lazy var button = CustomButton(title: "Log in",
+                                           color: UIColor(named: "MyColor")!,
+                                           titleColor: .white,
+                                           cornerRadius: 10)
+
     
     //    MARK: - LifeCycle
     
@@ -120,6 +116,9 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(authorization)
         scrollView.addSubview(button)
         makeConstraints()
+        button.action = {
+            self.buttonTouch()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
