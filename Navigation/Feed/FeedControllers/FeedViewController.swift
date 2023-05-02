@@ -36,8 +36,8 @@ class FeedViewController: UIViewController {
         return label
     }()
     
-    init(check: FeedModelProtocol) {
-        self.passwordCheck = check
+    init(passwordCheck: FeedModelProtocol) {
+        self.passwordCheck = passwordCheck
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -89,7 +89,6 @@ class FeedViewController: UIViewController {
             
         }
     }
-    
 }
 
 

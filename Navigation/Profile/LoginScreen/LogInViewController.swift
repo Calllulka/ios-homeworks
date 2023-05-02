@@ -166,8 +166,10 @@ class LogInViewController: UIViewController {
         }
         
         if let user = loginDelegate?.check(login: loginText, password: passwordText) {
-            let profileViewController = ProfileViewController()
-            profileViewController.user = user
+            let model = ProfileModel(user: user)
+            let viewModel = ProfileViewModel(model: model)
+            let profileViewController = ProfileViewController(viewModel: viewModel)
+//            profileViewController.user = user
             navigationController?.pushViewController(profileViewController, animated: true)
         } else {
             let alert = UIAlertController(title: "Неверный логин или пароль", message: "", preferredStyle: .alert)

@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func createFeedViewController() -> UINavigationController {
         let feedModel = FeedModel()
-        let feedViewController = FeedViewController(check: feedModel)
+        let feedViewController = FeedViewController(passwordCheck: feedModel)
         feedViewController.title = "Feed"
         feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "doc.richtext"), tag: 0)
         return UINavigationController(rootViewController: feedViewController)

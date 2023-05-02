@@ -23,6 +23,8 @@
 		118E6552299CF117005BFB2C /* PostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E6551299CF117005BFB2C /* PostFeed.swift */; };
 		118E6555299CF4D4005BFB2C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E6554299CF4D4005BFB2C /* InfoViewController.swift */; };
 		118E656929A20BB5005BFB2C /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E656829A20BB5005BFB2C /* ProfileHeaderView.swift */; };
+		119E579929FFFA1B00A95A26 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119E579829FFFA1B00A95A26 /* ProfileViewModel.swift */; };
+		119E579E2A000AFA00A95A26 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119E579D2A000AFA00A95A26 /* ProfileModel.swift */; };
 		11A87E1B29DAF82C00C61942 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A87E1229DAF82B00C61942 /* StorageService.framework */; };
 		11A87E2229DAF82C00C61942 /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A87E2129DAF82C00C61942 /* StorageServiceTests.swift */; };
 		11A87E2429DAF82C00C61942 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A87E1429DAF82B00C61942 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -97,6 +99,8 @@
 		118E6551299CF117005BFB2C /* PostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFeed.swift; sourceTree = "<group>"; };
 		118E6554299CF4D4005BFB2C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		118E656829A20BB5005BFB2C /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		119E579829FFFA1B00A95A26 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		119E579D2A000AFA00A95A26 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		11A87E1229DAF82B00C61942 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A87E1429DAF82B00C61942 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		11A87E1529DAF82B00C61942 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -154,9 +158,9 @@
 		1172BACC29B6829700CE30D9 /* ProfileControllers */ = {
 			isa = PBXGroup;
 			children = (
-				111549FB29A76482008C3251 /* LogInViewController.swift */,
 				118E6548299CD548005BFB2C /* ProfileViewController.swift */,
-				1172BAE029B72A7F00CE30D9 /* PhotosViewController.swift */,
+				119E579829FFFA1B00A95A26 /* ProfileViewModel.swift */,
+				119E579D2A000AFA00A95A26 /* ProfileModel.swift */,
 			);
 			path = ProfileControllers;
 			sourceTree = "<group>";
@@ -173,6 +177,8 @@
 		1172BACE29B682C900CE30D9 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				118E6554299CF4D4005BFB2C /* InfoViewController.swift */,
+				118E654C299CDF4F005BFB2C /* PostViewController.swift */,
 				118E654B299CDF27005BFB2C /* FeedControllers */,
 				118E6550299CF104005BFB2C /* FeedData */,
 			);
@@ -217,8 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				118E6545299CD531005BFB2C /* FeedViewController.swift */,
-				118E654C299CDF4F005BFB2C /* PostViewController.swift */,
-				118E6554299CF4D4005BFB2C /* InfoViewController.swift */,
 				11F1B21429FA9D0E0087F35D /* FeedModel.swift */,
 			);
 			path = FeedControllers;
@@ -235,12 +239,30 @@
 		118E656729A20B97005BFB2C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				119E57A22A000CB100A95A26 /* PhotosScreen */,
+				119E57A12A000C8700A95A26 /* LoginScreen */,
 				11F1B1E229F01BF60087F35D /* Service */,
 				1172BACD29B682A900CE30D9 /* ProfileData */,
 				1172BACC29B6829700CE30D9 /* ProfileControllers */,
 				11154A0529ACCED1008C3251 /* ProfileCell */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		119E57A12A000C8700A95A26 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				111549FB29A76482008C3251 /* LogInViewController.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		119E57A22A000CB100A95A26 /* PhotosScreen */ = {
+			isa = PBXGroup;
+			children = (
+				1172BAE029B72A7F00CE30D9 /* PhotosViewController.swift */,
+			);
+			path = PhotosScreen;
 			sourceTree = "<group>";
 		};
 		11A87E1329DAF82B00C61942 /* StorageService */ = {
@@ -443,6 +465,8 @@
 				1172BAE529B72BEE00CE30D9 /* PhotosCollectionViewCell.swift in Sources */,
 				1172BAE129B72A7F00CE30D9 /* PhotosViewController.swift in Sources */,
 				11F1B1F029F05B030087F35D /* LoginFactory.swift in Sources */,
+				119E579929FFFA1B00A95A26 /* ProfileViewModel.swift in Sources */,
+				119E579E2A000AFA00A95A26 /* ProfileModel.swift in Sources */,
 				11F1B1E429F01C080087F35D /* Checker.swift in Sources */,
 				118E654D299CDF4F005BFB2C /* PostViewController.swift in Sources */,
 				118E656929A20BB5005BFB2C /* ProfileHeaderView.swift in Sources */,
