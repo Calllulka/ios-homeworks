@@ -141,7 +141,6 @@ class ProfileViewController: UIViewController {
             case .statusDidChanged(let statusText):
                 self.header.statusLabel.text = statusText
             }
-            
         }
     }
     

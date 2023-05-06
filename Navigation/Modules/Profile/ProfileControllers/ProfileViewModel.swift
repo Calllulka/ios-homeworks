@@ -16,7 +16,7 @@ protocol ProfileViewModelProtocol {
 final class ProfileViewModel: ProfileViewModelProtocol {
     enum State {
         case setUserData(User)
-        case setPostsData( [Post])
+        case setPostsData([Post])
         case statusDidChanged(String?)
     }
     
