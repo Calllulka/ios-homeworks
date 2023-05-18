@@ -22,9 +22,6 @@ final class FeedViewModel: FeedViewModelProtocol {
         case checkPassword(String?)
     }
     weak var coordinator: FeedCoordinator? {
-        didSet {
-            print("kek")
-        }
     }
     
     var onStateDidChange: ((FeedViewModel.State) -> ())?
