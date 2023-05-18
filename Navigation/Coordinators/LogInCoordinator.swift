@@ -10,6 +10,7 @@ import UIKit
 final class LogInCoordinator: ModuleCoordinatable {
     let moduleType: Module.ModuleType
     var loginDelegate: LoginViewControllerDelegate?
+    let myFactory = MyLoginFactory()
 
     private let factory: AppFactory
 

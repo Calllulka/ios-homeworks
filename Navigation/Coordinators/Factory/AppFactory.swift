@@ -10,8 +10,8 @@ import UIKit
 final class AppFactory {
     private let logInModel: LogInModel
     private let feedModel: FeedModel
-    let myFactory = MyLoginFactory()
-
+    private let myFactory = MyLoginFactory()
+    
     init(logInModel: LogInModel, feedModel: FeedModel) {
         self.logInModel = logInModel
         self.feedModel = feedModel
@@ -27,7 +27,8 @@ final class AppFactory {
             return Module(moduleType: .logIn, viewModel: viewModel, view: view)
         case .feed:
             let viewModel = FeedViewModel(model: feedModel)
-            let view = FeedViewController(viewModel: viewModel)
+            let viewController = FeedViewController(viewModel: viewModel)
+            let view = UINavigationController(rootViewController: viewController)
             return Module(moduleType: .feed, viewModel: viewModel, view: view)
         }
     }

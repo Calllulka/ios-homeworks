@@ -19,14 +19,11 @@ class PhotosViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
-        
         var collection = UICollectionView(frame: .zero,
                                           collectionViewLayout: viewLayout)
         collection.backgroundColor = .white
-        
         collection.register(PhotosCollectionViewCell.self,
                             forCellWithReuseIdentifier: PhotosCollectionViewCell.reuseId)
-        
         return collection
     }()
     
@@ -39,7 +36,6 @@ class PhotosViewController: UIViewController {
         setupLayouts()
         facade.subscribe(self)
         facade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Pokemon.makeArray())
-//        receive(images: pokemonArray)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -40,6 +40,7 @@
 		11B06BF22A05038F004FB3C6 /* LogInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B06BF12A05038F004FB3C6 /* LogInCoordinator.swift */; };
 		11B06BFA2A0508B6004FB3C6 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B06BF92A0508B6004FB3C6 /* FeedCoordinator.swift */; };
 		11B06C002A050931004FB3C6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B06BFF2A050931004FB3C6 /* AppCoordinator.swift */; };
+		11B06C082A10F2A9004FB3C6 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B06C072A10F2A9004FB3C6 /* ProfileCoordinator.swift */; };
 		11F1B1B129EA96500087F35D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11F1B1B029EA96500087F35D /* SnapKit */; };
 		11F1B1BB29EA96EB0087F35D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1BA29EA96EB0087F35D /* UserService.swift */; };
 		11F1B1E429F01C080087F35D /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B1E329F01C080087F35D /* Checker.swift */; };
@@ -125,6 +126,7 @@
 		11B06BF12A05038F004FB3C6 /* LogInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInCoordinator.swift; sourceTree = "<group>"; };
 		11B06BF92A0508B6004FB3C6 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		11B06BFF2A050931004FB3C6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		11B06C072A10F2A9004FB3C6 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		11F1B1BA29EA96EB0087F35D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		11F1B1E329F01C080087F35D /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		11F1B1E929F01FC30087F35D /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				11B06BF12A05038F004FB3C6 /* LogInCoordinator.swift */,
 				11B06BF92A0508B6004FB3C6 /* FeedCoordinator.swift */,
 				11B06BFF2A050931004FB3C6 /* AppCoordinator.swift */,
+				11B06C072A10F2A9004FB3C6 /* ProfileCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				11F1B1BB29EA96EB0087F35D /* UserService.swift in Sources */,
 				11B06BD12A04ED79004FB3C6 /* Coordinatable.swift in Sources */,
 				111549FC29A76482008C3251 /* LogInViewController.swift in Sources */,
+				11B06C082A10F2A9004FB3C6 /* ProfileCoordinator.swift in Sources */,
 				118E6549299CD548005BFB2C /* ProfileViewController.swift in Sources */,
 				11B06BDE2A04F163004FB3C6 /* AppFactory.swift in Sources */,
 				11F1B21529FA9D0E0087F35D /* FeedModel.swift in Sources */,

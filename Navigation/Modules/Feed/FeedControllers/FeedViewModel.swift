@@ -21,6 +21,11 @@ final class FeedViewModel: FeedViewModelProtocol {
     enum ViewInput {
         case checkPassword(String?)
     }
+    weak var coordinator: FeedCoordinator? {
+        didSet {
+            print("kek")
+        }
+    }
     
     var onStateDidChange: ((FeedViewModel.State) -> ())?
     
@@ -33,6 +38,7 @@ final class FeedViewModel: FeedViewModelProtocol {
     func updateState(viewInput: FeedViewModel.ViewInput) {
         switch viewInput {
         case .checkPassword(let password):
+            coordinator?.pushPostViewController()
             onStateDidChange?(.checkPassword(model.password == password))
         }
     }

@@ -24,7 +24,13 @@ final class FeedCoordinator: ModuleCoordinatable {
         let module = factory.makeModule(ofType: moduleType)
         let viewController = module.view
         viewController.tabBarItem = moduleType.tabBarItem
+        (module.viewModel as? FeedViewModel)?.coordinator = self
         self.module = module
         return viewController
+    }
+    
+    func pushPostViewController() {
+        let postViewController = PostViewController()
+        (module?.view as? UINavigationController)?.pushViewController(postViewController, animated: true)
     }
 }
