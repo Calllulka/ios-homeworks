@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     
 //    MARK: - Property
     
-    private let passwordCheck: FeedModelProtocol
+    private var viewModel: FeedViewModelProtocol
     
     var post = PostFeed(title: "Мой пост")
     
@@ -36,8 +36,8 @@ class FeedViewController: UIViewController {
         return label
     }()
     
-    init(check: FeedModelProtocol) {
-        self.passwordCheck = check
+    init(viewModel: FeedViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,26 +52,16 @@ class FeedViewController: UIViewController {
         view.addSubview(inputText)
         view.addSubview(colorLabel)
         addConstraintsStackView()
-        
-        checkGuessButton.action = {
-            if self.passwordCheck.check(word: self.inputText.text) {
-                self.colorLabel.alpha = 1
-                self.colorLabel.backgroundColor = .green
-                self.colorLabel.text = "Правильно!"
-            } else {
-                self.colorLabel.alpha = 1
-                self.colorLabel.backgroundColor = .red
-                self.colorLabel.text = "Неправильно!"
-            }
-        }
+        buttonAction()
+        bind()
     }
     
 //    MARK: - Function
     
-    @objc func buttonAction() {
-        let postViewController = PostViewController()
-        postViewController.titlePost = post.title
-        self.navigationController?.pushViewController(postViewController, animated: true)
+    private func buttonAction() {
+        checkGuessButton.action = {
+            self.viewModel.updateState(viewInput: .checkPassword(self.inputText.text))
+        }
     }
     
     private func addConstraintsStackView() {
@@ -90,6 +80,25 @@ class FeedViewController: UIViewController {
         }
     }
     
+    //    MARK: - bind
+
+    private func bind() {
+        viewModel.onStateDidChange = { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .checkPassword(let bool): 
+                if (bool != nil) {
+                    self.colorLabel.alpha = 1
+                    self.colorLabel.backgroundColor = .green
+                    self.colorLabel.text = "Правильно!"
+                } else {
+                    self.colorLabel.alpha = 1
+                    self.colorLabel.backgroundColor = .red
+                    self.colorLabel.text = "Неправильно!"
+                }
+            }
+        }
+    }
 }
 
 

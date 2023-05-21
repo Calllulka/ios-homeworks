@@ -13,15 +13,13 @@ class ProfileViewController: UIViewController {
     
     //    MARK: - Property
     
-    var user: User? = nil {
+    private var viewModel: ProfileViewModelProtocol
+    private var avatarOriginPoint = CGPoint()
+    private var posts: [Post] = [] {
         didSet {
-            prepareHeader()
+            tableView.reloadData()
         }
     }
-    
-    private var dataSourse = Post.make()
-    
-    private var avatarOriginPoint = CGPoint()
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -32,7 +30,7 @@ class ProfileViewController: UIViewController {
     }()
     
     private let avatar: UIImageView = {
-        var imageView = UIImageView(image: UIImage(named: "avatarImageView"))
+        var imageView = UIImageView()
         imageView.layer.borderWidth = 3.0
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = 55
@@ -55,11 +53,22 @@ class ProfileViewController: UIViewController {
     
     //    MARK: - LifeCycle
     
+    init(viewModel: ProfileViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         setupConstrains()
         setupGesture()
+        bind()
+        viewModel.updateState(viewInput: .needData)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +79,7 @@ class ProfileViewController: UIViewController {
     //    MARK: - Function setupConstraint
     
     private func prepareView() {
+        header.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         #if DEBUG
@@ -119,10 +129,27 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    private func prepareHeader() {
-        header.avatarImageView.image = user?.avatar
-        header.fullNameLabel.text = user?.name
-        header.statusLabel.text = user?.status
+    private func bind() {
+        viewModel.onStateDidChange = { [weak self] state in
+            guard let self = self else { return }
+            
+            switch state {
+            case .setUserData(let user):
+                self.prepareHeader(user: user)
+            case .setPostsData(let posts):
+                self.posts = posts
+            case .statusDidChanged(let statusText):
+                self.header.statusLabel.text = statusText
+            }
+        }
+    }
+    
+    
+    private func prepareHeader(user: User) {
+        avatar.image = user.avatar
+        header.avatarImageView.image = user.avatar
+        header.fullNameLabel.text = user.name
+        header.statusLabel.text = user.status
     }
     
     @objc private func avatarTap(sender: UITapGestureRecognizer) {
@@ -179,7 +206,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Post.make().count + 1
+        posts.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -192,7 +219,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.id, for: indexPath) as? PostTableViewCell else {
                 return UITableViewCell()
             }
-            let post = dataSourse[indexPath.row - 1]
+            let post = posts[indexPath.row - 1]
             cell.configure(with: post)
             cell.selectionStyle = .none
             return cell
@@ -204,5 +231,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let photoController = PhotosViewController()
             navigationController?.pushViewController(photoController, animated: true)
         }
+    }
+}
+
+extension ProfileViewController: HeaderDelegate {
+    func statusDidChanged(text: String?) {
+        viewModel.updateState(viewInput: .statusDidChanged(text))
     }
 }

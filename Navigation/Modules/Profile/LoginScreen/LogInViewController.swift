@@ -8,16 +8,11 @@
 import UIKit
 import SnapKit
 
-protocol LoginViewControllerDelegate: AnyObject {
-    func check(login: String, password: String) -> User?
-}
-
-
 class LogInViewController: UIViewController {
     
     // MARK: - Property
     
-    var loginDelegate: LoginViewControllerDelegate?
+    private let viewModel: LogInViewModelProtocol
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -100,7 +95,8 @@ class LogInViewController: UIViewController {
     
     //    MARK: - LifeCycle
     
-    init() {
+    init(viewModel: LogInViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -116,9 +112,8 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(authorization)
         scrollView.addSubview(button)
         makeConstraints()
-        button.action = {
-            self.buttonTouch()
-        }
+        button.action = { self.buttonTouch() }
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,25 +154,27 @@ class LogInViewController: UIViewController {
     }
     
     @objc func buttonTouch() {
-        guard let loginText = login.text,
-              let passwordText = password.text
-        else {
-            return
-        }
-        
-        if let user = loginDelegate?.check(login: loginText, password: passwordText) {
-            let profileViewController = ProfileViewController()
-            profileViewController.user = user
-            navigationController?.pushViewController(profileViewController, animated: true)
-        } else {
-            let alert = UIAlertController(title: "Неверный логин или пароль", message: "", preferredStyle: .alert)
-            let dismissAlert = UIAlertAction(title: "Закрыть", style: .cancel) {_ in
-                alert.dismiss(animated: true, completion: nil)
+        viewModel.updateState(viewInput: .buttonDidTap(login.text, password.text))
+    }
+    
+    func bindViewModel() {
+        viewModel.onStateDidChange = { [weak self] state in
+            guard let self = self else {
+                return
             }
-            alert.addAction(dismissAlert)
-            present(alert, animated: true, completion: nil)
+            
+            switch state {
+            case .error:
+                let alert = UIAlertController(title: "Неверный логин или пароль", message: "", preferredStyle: .alert)
+                let dismissAlert = UIAlertAction(title: "Закрыть", style: .cancel) {_ in
+                    alert.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(dismissAlert)
+                self.present(alert, animated: true, completion: nil)
+            case .succsess:
+                break
+            }
         }
-        
     }
     
     func setupKeyboardObservers() {

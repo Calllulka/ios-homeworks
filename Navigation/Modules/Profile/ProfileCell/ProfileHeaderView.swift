@@ -8,9 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol HeaderDelegate: AnyObject {
+    func statusDidChanged(text: String?)
+}
+
 class ProfileHeaderView: UIView {
     
     //    MARK: property
+    
+    weak var delegate: HeaderDelegate?
     
     var statusText: String?
     
@@ -25,7 +31,7 @@ class ProfileHeaderView: UIView {
     
     var fullNameLabel: UILabel = {
         var lable = UILabel()
-        lable.text = "Kventin Tarantino"
+        lable.text = ""
         lable.textColor = .black
         lable.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return lable
@@ -121,12 +127,7 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func tapButton() {
-        print("\(setStatusButton.title(for: .normal)!)")
-        guard let text = statusText else {
-            statusLabel.text = "I'm frog, ping, ping"
-            return
-        }
-        statusLabel.text = text
+        delegate?.statusDidChanged(text: statusTextField.text)
     }
     
     @objc func statusTextChanged(_ textField: UITextField){
