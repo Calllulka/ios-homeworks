@@ -13,9 +13,14 @@ class PhotosViewController: UIViewController {
 
     //    MARK: - Property
     
-    fileprivate lazy var pokemonArray: [UIImage] = []
+    private var pokemonArray: [UIImage] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
-    private var facade = ImagePublisherFacade()
+    private lazy var procaess = ImageProcessor()
+    
     
     private lazy var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -31,16 +36,36 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateImages()
         setupView()
         setupSubviews()
         setupLayouts()
-        facade.subscribe(self)
-        facade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Pokemon.makeArray())
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func updateImages() {
+        let startTime = Date().timeIntervalSince1970
+        procaess.processImagesOnThread(sourceImages: Pokemon.makeArray(), filter: .chrome, qos: .background) { [weak self] cgImages in
+            let endTime = Date().timeIntervalSince1970
+            
+                let uiImages = cgImages.compactMap({ cgImage -> UIImage? in
+                    guard let cgImage = cgImage else { return nil }
+                    return UIImage(cgImage: cgImage)
+                })
+                
+            DispatchQueue.main.async {
+                self?.pokemonArray = uiImages
+            // stop activity
+            }
+            let elapsedTime = endTime - startTime
+            print(elapsedTime)
+        }
     }
     
     //    MARK: - Function
@@ -156,11 +181,11 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
-
-    func receive(images: [UIImage]) {
-        pokemonArray = images
-        let indexPath = IndexPath(row: pokemonArray.count - 1, section: 0)
-        collectionView.insertItems(at: [indexPath])
-    }
-}
+//extension PhotosViewController: ImageLibrarySubscriber {
+//
+//    func receive(images: [UIImage]) {
+//        pokemonArray = images
+//        let indexPath = IndexPath(row: pokemonArray.count - 1, section: 0)
+//        collectionView.insertItems(at: [indexPath])
+//    }
+//}

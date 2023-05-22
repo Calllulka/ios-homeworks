@@ -21,8 +21,7 @@ final class FeedViewModel: FeedViewModelProtocol {
     enum ViewInput {
         case checkPassword(String?)
     }
-    weak var coordinator: FeedCoordinator? {
-    }
+    weak var coordinator: FeedCoordinator? 
     
     var onStateDidChange: ((FeedViewModel.State) -> ())?
     
