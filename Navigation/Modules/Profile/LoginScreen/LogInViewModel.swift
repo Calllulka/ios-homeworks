@@ -15,13 +15,17 @@ final class LogInViewModel: LogInViewModelProtocol {
     enum State {
         case succsess
         case error
+        case password(String)
+        case loading(Bool)
     }
     
     enum ViewInput {
         case buttonDidTap(String?, String?)
+        case pickUpPassword
     }
     
     weak var coordinator: LogInCoordinator?
+    let bruteForce = BruteForce()
     var onStateDidChange: ((LogInViewModel.State) -> ())?
     
     private(set) var state: State = .succsess {
@@ -48,6 +52,13 @@ final class LogInViewModel: LogInViewModelProtocol {
                 return state = .error
             }
             coordinator?.pushProfileController(user: userGood)
+        case .pickUpPassword:
+            let pass = Checker.shared.password
+            onStateDidChange?(.loading(true))
+            bruteForce.bruteForce(passwordToUnlock: pass) { [weak self] unlPass in
+                self?.onStateDidChange?(.loading(false))
+                self?.onStateDidChange?(.password(unlPass))
+            }
         }
     }
 }
