@@ -13,7 +13,19 @@ class Checker {
     private init() {}
     
     private let login = "kek"
-    private let password = "111"
+    let password: String = {
+        let element = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let char1 = element.randomElement()
+        let char2 = element.randomElement()
+        let char3 = element.randomElement()
+        let char4 = element.randomElement()
+        var string = ""
+        string.append(char1!)
+        string.append(char2!)
+        string.append(char3!)
+        string.append(char4!)
+        return string
+    }()
     
     func check(login: String, password: String) -> Bool {
         self.login == login && self.password == password

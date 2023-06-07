@@ -14,7 +14,7 @@ protocol LoginFactory {
 struct MyLoginFactory: LoginFactory {
     func makeLoginInspector() -> LoginInspector {
         let user =  User(login: "kek",
-                         password: "111",
+                         password: Checker.shared.password,
                          name: "KventinTarantino",
                          status: "I love swift",
                          avatar: UIImage(named: "avatarImageView")!)

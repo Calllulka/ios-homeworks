@@ -14,6 +14,23 @@ class LogInViewController: UIViewController {
     
     private let viewModel: LogInViewModelProtocol
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.isHidden = true
+        return indicator
+    }()
+    
+    private lazy var pickUpPassword: UIButton = {
+       let button = UIButton()
+        button.setTitle("Подобрать пароль", for: .normal)
+        button.addTarget(self, action: #selector(pickUpPass), for: .touchUpInside)
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 0.5
+        button.backgroundColor = .gray
+        return button
+    }()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         
@@ -50,7 +67,7 @@ class LogInViewController: UIViewController {
     
     private lazy var password: UITextField = {
         let password = UITextField()
-        password.text = "111"
+        password.text = ""
         password.textColor = .black
         password.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         password.autocapitalizationType = .none
@@ -111,6 +128,8 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(logo)
         scrollView.addSubview(authorization)
         scrollView.addSubview(button)
+        scrollView.addSubview(pickUpPassword)
+        scrollView.addSubview(activityIndicator)
         makeConstraints()
         button.action = { self.buttonTouch() }
         bindViewModel()
@@ -149,6 +168,14 @@ class LogInViewController: UIViewController {
             $0.left.equalTo(scrollView.snp.left).inset(16)
             $0.width.equalTo(scrollView.snp.width).offset(-32)
             $0.height.equalTo(50)
+        }
+        pickUpPassword.snp.makeConstraints {
+            $0.top.equalTo(button.snp.bottom).offset(16)
+            $0.centerX.equalTo(scrollView.snp.centerX)
+        }
+        activityIndicator.snp.makeConstraints {
+            $0.top.equalTo(pickUpPassword.snp.bottom).offset(16)
+            $0.centerX.equalTo(scrollView.snp.centerX)
             $0.bottom.equalTo(scrollView.snp.bottom)
         }
     }
@@ -157,12 +184,13 @@ class LogInViewController: UIViewController {
         viewModel.updateState(viewInput: .buttonDidTap(login.text, password.text))
     }
     
-    func bindViewModel() {
+    @objc func pickUpPass() {
+        viewModel.updateState(viewInput: .pickUpPassword)
+    }
+    
+    private func bindViewModel() {
         viewModel.onStateDidChange = { [weak self] state in
-            guard let self = self else {
-                return
-            }
-            
+            guard let self = self else { return }
             switch state {
             case .error:
                 let alert = UIAlertController(title: "Неверный логин или пароль", message: "", preferredStyle: .alert)
@@ -173,6 +201,12 @@ class LogInViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             case .succsess:
                 break
+            case .password(let pass):
+                self.password.text = pass
+                self.password.isSecureTextEntry = false
+            case .loading(let isLoading):
+                self.activityIndicator.isHidden = !isLoading
+                isLoading ? self.activityIndicator.startAnimating() : self.activityIndicator.stopAnimating()
             }
         }
     }
